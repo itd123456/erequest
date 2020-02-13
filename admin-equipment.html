@@ -1,0 +1,433 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>E-Request - Equipments</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- favicon
+        ============================================ -->
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <!-- Google Fonts
+        ============================================ -->
+    <link href="https://fonts.googleapis.com/css?family=Play:400,700" rel="stylesheet">
+    <!-- Bootstrap CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Bootstrap CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <!-- owl.carousel CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/owl.carousel.css">
+    <link rel="stylesheet" href="css/owl.theme.css">
+    <link rel="stylesheet" href="css/owl.transitions.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <!-- animate CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/animate.css">
+    <!-- normalize CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <!-- meanmenu icon CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/meanmenu.min.css">
+    <!-- main CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/main.css">
+    <!-- morrisjs CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/morrisjs/morris.css">
+    <!-- mCustomScrollbar CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/scrollbar/jquery.mCustomScrollbar.min.css">
+    <!-- metisMenu CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/metisMenu/metisMenu.min.css">
+    <link rel="stylesheet" href="css/metisMenu/metisMenu-vertical.css">
+    <!-- calendar CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/calendar/fullcalendar.min.css">
+    <link rel="stylesheet" href="css/calendar/fullcalendar.print.min.css">
+    <!-- x-editor CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/editor/select2.css">
+    <link rel="stylesheet" href="css/editor/datetimepicker.css">
+    <link rel="stylesheet" href="css/editor/bootstrap-editable.css">
+    <link rel="stylesheet" href="css/editor/x-editor-style.css">
+    <!-- normalize CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/data-table/bootstrap-table.css">
+    <link rel="stylesheet" href="css/data-table/bootstrap-editable.css">
+    <!-- style CSS
+        ============================================ -->
+    <link rel="stylesheet" href="style.css">
+    <!-- responsive CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- modernizr JS
+        ============================================ -->
+    <style type="text/css">
+       input {font-weight:bold; border: 1px solid #000;}
+       select {border: 1px solid #000}
+       textarea {border: 1px solid #000}
+       label {white-space: pre-wrap;}
+    </style>
+    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+    <div class="left-sidebar-pro">
+        <nav id="sidebar" class="">
+            <div class="sidebar-header">
+                <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
+                <strong><img src="img/logo/logosn.png" alt="" /></strong>
+            </div>
+            <div class="left-custom-menu-adp-wrap comment-scrollbar">
+                <nav class="sidebar-nav left-sidebar-menu-pro">
+                    <ul class="metismenu" id="menu1">
+                        <ul>
+                            <li><a title="Requisitions" href="admin.html" aria-expanded="false">
+                                    <i class="fa fa-th icon-wrap sub-icon-mg" aria-hidden="true"></i> 
+                                    <span class="mini-click-non">Requisitions</span>
+                            </a></li>
+                            <li><a title="Equipments" href="admin-equipment.html" aria-expanded="false">
+                                    <i class="fa fa-cog" aria-hidden="true"></i> &nbsp 
+                                    <span class="mini-click-non">Equipments</span>
+                            </a></li>
+                            <li><a title="Approved by GM" href="approved-by-gm.html" aria-expanded="false">
+                                    <i class="fa fa-check" aria-hidden="true"></i> &nbsp 
+                                    <span class="mini-click-non">Approved by GM</span>
+                            </a></li>
+                        </ul>
+                    </ul>
+                </nav>
+            </div>
+        </nav>
+    </div>
+    <!-- Start Welcome area -->
+    <div class="all-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="logo-pro">
+                        <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-advance-area">
+            <div class="header-top-area">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="header-top-wraper">
+                                <div class="row">
+                                    <div class="col-lg-1 col-md-0 col-sm-1 col-xs-12">
+                                        <div class="menu-switcher-pro">
+                                            <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+                                                    <i class="fa fa-bars"></i>
+                                                </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12">
+                                        <div class="header-top-menu tabl-d-n">
+                                            <ul class="nav navbar-nav mai-top-nav">
+                                             
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                                        <div class="header-right-info">
+                                            <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                                <li class="nav-item" style="margin-right: 100px">
+                                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                                            <i class="fa fa-user adminpro-user-rounded header-riht-inf" aria-hidden="true"></i>
+                                                            <span class="admin-name"></span>
+                                                        </a>
+                                                    <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                                                        <li><a href="edit-profile.html"><span class="fa fa-user author-log-ic"></span>My Profile</a>
+                                                        </li>
+                                                        <li><a href="php/destroy-session.php"><span class="fa fa-lock author-log-ic"></span>Log Out</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+<!-- View MODAL -->
+      <div class="modal fade view-req" id="viewReq" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">View Checked Equipment Request</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" id="time_view" name="time_view">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+               <center><img src="img/global.png" alt="GFDI" height="8" width="60%"><br>
+                <label style="font-size: 18px"><strong>REQUEST SLIP</strong></label></center><br>
+               Request No. : &nbsp <label id="v_req" name ="v_req">0</label><br/>
+               Name : &nbsp <label id="vname" name="vname">Name</label> <span style="margin-left: 30%">Date : <label id="vdate" name="vdate">Date</label></span><br/>
+               Branch : &nbsp <label id="vbranch" name="vbranch">Branch</label><br/>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table uk-table uk-table-hover uk-table-striped" id="view_table" name="view_table" width="100%" cellspacing="0">
+                    <thead>
+                      <tr>
+                        <th width="85%">Item (s)</th>
+                      </tr>
+                    </thead>
+                    <tbody id="view_tbody"></tbody>
+                  </table>
+                </div>
+              </div><br/>
+
+              Purpose of Request :<br/>
+              <textarea id="vpurpose" name="vpurpose" readonly rows="3" style="width: 100%" placeholder="Purpose of Request"></textarea><br/>
+              Justification : <input style="margin-left: 15%" type="checkbox" name="vreplace" id="vreplace" disabled=""> &nbsp <label style="font-size: 18px">REPLACEMENT</label> 
+                              <input style="margin-left: 15%" type="checkbox" name="vaddition" id="vaddition" disabled=""> &nbsp <label style="font-size: 18px">ADDITIONAL</label><br/><br/>
+              Noted By : &nbsp <label id="vhead" name="vhead">Department Head</label> &nbsp &nbsp Date : <label id="hdate" name="hdate">Date</label><br/>
+              Checked By : &nbsp <label id="vcheck" name="vcheck">Admin(Checker)</label> &nbsp &nbsp Date : <label id="cdate" name="cdate">Date</label></label><br/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"  id="view_close" name="view_close"><i class="fa fa-times" aria-hidden="true"></i>&nbspClose</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"  id="decline" name="decline"><i class="fa fa-times" aria-hidden="true"></i>&nbspDecline</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal"  id="check" name="check"><i class="fa fa-check" aria-hidden="true"></i>&nbspApprove</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<!-- VView MODAL -->
+      <div class="modal fade vview-req" id="vviewReq" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">View Approved Equipment Request</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" id="time_vview" name="time_vview">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+               <center><img src="img/global.png" alt="GFDI" height="8" width="60%"><br>
+                <label style="font-size: 18px"><strong>REQUEST SLIP</strong></label></center><br>
+               Request No. : &nbsp <label id="vv_req" name ="vv_req">0</label><br/>
+               Name : &nbsp <label id="vvname" name="vvname">Name</label> <span style="margin-left: 30%">Date : <label id="vvdate" name="vvdate">Date</label></span><br/>
+               Branch : &nbsp <label id="vvbranch" name="vvbranch">Branch</label><br/>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table uk-table uk-table-hover uk-table-striped" id="vview_table" name="vview_table" width="100%" cellspacing="0">
+                    <thead>
+                      <tr>
+                        <th>Item (s)</th>
+                      </tr>
+                    </thead>
+                    <tbody id="vview_tbody"></tbody>
+                  </table>
+                </div>
+              </div><br/>
+
+              Purpose of Request :<br/>
+              <textarea id="vvpurpose" name="vvpurpose" readonly rows="3" style="width: 100%" placeholder="Purpose of Request"></textarea><br/>
+              Justification : <input style="margin-left: 15%" type="checkbox" name="vvreplace" id="vvreplace" disabled=""> &nbsp <label style="font-size: 18px">REPLACEMENT</label> 
+                              <input style="margin-left: 15%" type="checkbox" name="vaddition" id="vvaddition" disabled=""> &nbsp <label style="font-size: 18px">ADDITIONAL</label><br/><br/>
+              Noted By : &nbsp <label id="vvhead" name="vvhead">Department Head</label> &nbsp &nbsp Date : <label id="vhdate" name="vhdate">Date</label><br/>
+              Checked By : &nbsp <label id="vvcheck" name="vvcheck">Admin(Checker)</label> &nbsp &nbsp Date : <label id="vcdate" name="vcdate">Date</label></label><br/>
+              Approved By Admin : &nbsp <label id="vvadmin" name="vvadmin">Admin(Approver)</label> &nbsp &nbsp Date : <label id="vvadate" name="vvadate">Date</label></label><br/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"  id="vview_close" name="vview_close"><i class="fa fa-times" aria-hidden="true"></i>&nbspClose</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+        <!-- Static Table Start -->
+        <div class="data-table-area mg-tb-15">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="sparkline13-list">
+                            <div class="sparkline13-hd">
+                                <div class="main-sparkline13-hd">
+                                    <h1><i class="fa fa-cog" area-hidden="true"></i> CHECKED EQUIPMENT REQUEST</h1>
+                                </div>
+                            </div>
+                            <div class="sparkline13-graph">
+                                <div class="datatable-dashv1-list custom-datatable-overright">
+                                    <div class="card mb-3">
+                                      <div class="card-body">
+                                        <div class="table-responsive">
+                                          <table class="table uk-table uk-table-hover uk-table-striped" id="dataTable" name="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                              <tr>
+                                                <th data-field="id">Request No</th>
+                                                <th>Requested By</th>
+                                                <th data-field="name" data-editable="true">Request Date</th>
+                                                <th data-field="company" data-editable="true">Status</th>
+                                                <th data-field="action">Action</th>
+                                              </tr>
+                                            </thead>
+                                           <!--  <tfoot>
+                                              <tr>
+                                                <th data-field="id">Request No</th>
+                                                <th>Requested By</th>
+                                                <th data-field="name" data-editable="true">Request Date</th>
+                                                <th data-field="company" data-editable="true">Status</th>
+                                                <th data-field="action">Action</th>
+                                              </tr>
+                                            </tfoot> -->
+                                          </table>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sparkline13-list">
+                            <div class="sparkline13-hd">
+                                <div class="main-sparkline13-hd">
+                                    <h1>APPROVED EQUIPMENT REQUEST</h1>
+                                </div>
+                            </div>
+                            <div class="sparkline13-graph">
+                                <div class="datatable-dashv1-list custom-datatable-overright">
+                                    <div class="card mb-3">
+                                      <div class="card-body">
+                                        <div class="table-responsive">
+                                          <table class="table uk-table uk-table-hover uk-table-striped" id="adTable" name="adTable" width="100%" cellspacing="0">
+                                            <thead>
+                                              <tr>
+                                                <th data-field="id">Request No</th>
+                                                <th>Requested By</th>
+                                                <th data-field="name" data-editable="true">Request Date</th>
+                                                <th data-field="company" data-editable="true">Status</th>
+                                                <th data-field="action">Action</th>
+                                              </tr>
+                                            </thead>
+                                            <!-- <tfoot>
+                                              <tr>
+                                                <th data-field="id">Request No</th>
+                                                <th>Requested By</th>
+                                                <th data-field="name" data-editable="true">Request Date</th>
+                                                <th data-field="company" data-editable="true">Status</th>
+                                                <th data-field="action">Action</th>
+                                              </tr>
+                                            </tfoot> -->
+                                          </table>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Static Table End -->
+        <div class="footer-copyright-area">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="footer-copy-right">
+                            <p>Copyright © 2020 Global Dominion Financing Inc. All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jquery
+        ============================================ -->
+    <script src="js/vendor/jquery-1.11.3.min.js"></script>
+    <!-- bootstrap JS
+        ============================================ -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- wow JS
+        ============================================ -->
+    <script src="js/wow.min.js"></script>
+    <!-- price-slider JS
+        ============================================ -->
+    <script src="js/jquery-price-slider.js"></script>
+    <!-- meanmenu JS
+        ============================================ -->
+    <script src="js/jquery.meanmenu.js"></script>
+    <!-- owl.carousel JS
+        ============================================ -->
+    <script src="js/owl.carousel.min.js"></script>
+    <!-- sticky JS
+        ============================================ -->
+    <script src="js/jquery.sticky.js"></script>
+    <!-- scrollUp JS
+        ============================================ -->
+    <script src="js/jquery.scrollUp.min.js"></script>
+    <!-- mCustomScrollbar JS
+        ============================================ -->
+    <script src="js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="js/scrollbar/mCustomScrollbar-active.js"></script>
+    <!-- metisMenu JS
+        ============================================ -->
+    <script src="js/metisMenu/metisMenu.min.js"></script>
+    <script src="js/metisMenu/metisMenu-active.js"></script>
+    <!-- data table JS
+        ============================================ -->
+
+    <!--  editable JS
+        ============================================ -->
+    <script src="js/editable/jquery.mockjax.js"></script>
+    <script src="js/editable/mock-active.js"></script>
+    <script src="js/editable/select2.js"></script>
+    <script src="js/editable/moment.min.js"></script>
+    <script src="js/editable/bootstrap-datetimepicker.js"></script>
+    <script src="js/editable/bootstrap-editable.js"></script>
+    <script src="js/editable/xediable-active.js"></script>
+    <!-- Chart JS
+        ============================================ -->
+    <script src="js/chart/jquery.peity.min.js"></script>
+    <script src="js/peity/peity-active.js"></script>
+    <!-- tab JS
+        ============================================ -->
+    <script src="js/tab.js"></script>
+    <!-- plugins JS
+        ============================================ -->
+    <script src="js/plugins.js"></script>
+    <!-- main JS
+        ============================================ -->
+    <script src="js/main.js"></script>
+    <script src="js/mine/admin-equipment.js"></script>
+
+     <!-- Bootstrap core JavaScript-->
+      <script src="vendors/jquery/jquery.min.js"></script>
+      <script src="vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+      <!-- Core plugin JavaScript-->
+      <script src="vendors/jquery-easing/jquery.easing.min.js"></script>
+
+      <!-- Page level plugin JavaScript-->
+      <script src="vendors/chart.js/Chart.min.js"></script>
+      <script src="vendors/datatables/jquery.dataTables.js"></script>
+      <script src="vendors/datatables/dataTables.bootstrap4.js"></script>
+
+      <!-- Custom scripts for all pages-->
+      <script src="js/sb-admin.min.js"></script>
+</body>
+
+</html>

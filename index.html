@@ -1,0 +1,512 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>E-Request - Requisitions</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- favicon
+        ============================================ -->
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+    <!-- Google Fonts
+        ============================================ -->
+    <link href="https://fonts.googleapis.com/css?family=Play:400,700" rel="stylesheet">
+    <!-- Bootstrap CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Bootstrap CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <!-- owl.carousel CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/owl.carousel.css">
+    <link rel="stylesheet" href="css/owl.theme.css">
+    <link rel="stylesheet" href="css/owl.transitions.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <!-- animate CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/animate.css">
+    <!-- normalize CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/normalize.css">
+    <!-- meanmenu icon CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/meanmenu.min.css">
+    <!-- main CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/main.css">
+    <!-- morrisjs CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/morrisjs/morris.css">
+    <!-- mCustomScrollbar CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/scrollbar/jquery.mCustomScrollbar.min.css">
+    <!-- metisMenu CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/metisMenu/metisMenu.min.css">
+    <link rel="stylesheet" href="css/metisMenu/metisMenu-vertical.css">
+    <!-- calendar CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/calendar/fullcalendar.min.css">
+    <link rel="stylesheet" href="css/calendar/fullcalendar.print.min.css">
+    <!-- x-editor CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/editor/select2.css">
+    <link rel="stylesheet" href="css/editor/datetimepicker.css">
+    <link rel="stylesheet" href="css/editor/bootstrap-editable.css">
+    <link rel="stylesheet" href="css/editor/x-editor-style.css">
+    <!-- normalize CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/data-table/bootstrap-table.css">
+    <link rel="stylesheet" href="css/data-table/bootstrap-editable.css">
+    <!-- style CSS
+        ============================================ -->
+    <link rel="stylesheet" href="style.css">
+    <!-- responsive CSS
+        ============================================ -->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- modernizr JS
+        ============================================ -->
+    <style type="text/css">
+       input {font-weight:bold; border: 1px solid #000;}
+       select {border: 1px solid #000}
+       textarea {border: 1px solid #000}
+       label {white-space: pre-wrap;}
+    </style>
+    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+
+<body>
+    <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+    <div class="left-sidebar-pro">
+        <nav id="sidebar" class="">
+            <div class="sidebar-header">
+                <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
+                <strong><img src="img/logo/logosn.png" alt="" /></strong>
+            </div>
+            <div class="left-custom-menu-adp-wrap comment-scrollbar">
+                <nav class="sidebar-nav left-sidebar-menu-pro">
+                    <ul class="metismenu" id="menu1">
+                        <ul>
+                            <li><a title="Requisitions" href="index.html" aria-expanded="false"><i class="fa fa-th icon-wrap sub-icon-mg" aria-hidden="true"></i> <span class="mini-click-non">Requisitions</span></a></li>
+                            <li><a title="Equipments" href="equipment.html" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i> &nbsp <span class="mini-click-non">Equipments</span></a></li>
+                        </ul>
+                    </ul>
+                </nav>
+            </div>
+        </nav>
+    </div>
+    <!-- Start Welcome area -->
+    <div class="all-content-wrapper">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="logo-pro">
+                        <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-advance-area">
+            <div class="header-top-area">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="header-top-wraper">
+                                <div class="row">
+                                    <div class="col-lg-1 col-md-0 col-sm-1 col-xs-12">
+                                        <div class="menu-switcher-pro">
+                                            <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+                                                    <i class="fa fa-bars"></i>
+                                                </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-7 col-sm-6 col-xs-12">
+                                        <div class="header-top-menu tabl-d-n">
+                                            <ul class="nav navbar-nav mai-top-nav">
+                                             
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                                        <div class="header-right-info">
+                                            <ul class="nav navbar-nav mai-top-nav header-right-menu">
+                                                <li class="nav-item" style="margin-right: 100px">
+                                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                                            <i class="fa fa-user adminpro-user-rounded header-riht-inf" aria-hidden="true"></i>
+                                                            <span class="admin-name"></span>
+                                                        </a>
+                                                    <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                                                        <li><a href="edit-profile.html"><span class="fa fa-user author-log-ic"></span>My Profile</a>
+                                                        </li>
+                                                        <li><a href="php/destroy-session.php"><span class="fa fa-lock author-log-ic"></span>Log Out</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+<!-- ADD MODAL -->
+        <div class="modal fade add-req" id="addReq" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Add Requisition</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" id="time_close" name="time_close">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+              <span style="display: inline;">
+                Quantity :&nbsp<input type="number" name="qnty" id="qnty" style="width:100px">&nbsp
+                <select id="type" name="type">
+                    <option value="pcs">PCS</option>
+                    <option value="rim">RIM</option>
+                    <option value="box">BOX</option>
+                </select> &nbsp
+                Particular :&nbsp<input type="text" name="part" id="part" style="width:110px"> &nbsp
+                Amount :&nbsp<input type="number" name="amount" id="amount" style="width:110px"> &nbsp
+                Total Amount :&nbsp<input type="number" name="total" id="total" style="width:110px">
+              </span><br><br>
+              <button type="button" class="btn btn-success" id="particular" name="particular" style="margin-bottom: 5px"><i class="fa fa-save" aria-hidden="true"></i>&nbspAdd Particular</button>
+
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-bordered" id="particular_table" name="particular_table" width="100%" cellspacing="0">
+                    <thead>
+                      <tr>
+                        <th>Quantity</th>
+                        <th>Particular</th>
+                        <th>Amount</th>
+                        <th>Total</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="add_tbody"></tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"  id="add_close" name="add_close"><i class="fa fa-times" aria-hidden="true"></i>&nbspClose</button>
+                <button type="button" class="btn btn-primary" id="save_trans" name="save_trans" data-dismiss="modal"><i class="fa fa-save" aria-hidden="true"></i>&nbspSave</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<!-- View MODAL -->
+      <div class="modal fade view-req" id="viewReq" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">View Requisition</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" id="time_view" name="time_view">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+              Requisition No.: &nbsp <label id="vreq" name="vreq">Name</label><br/>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-bordered" id="view_table" name="view_table" width="100%" cellspacing="0">
+                    <thead>
+                      <tr>
+                        <th>Quantity</th>
+                        <th>Particular</th>
+                        <th>Amount</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody id="view_tbody"></tbody>
+                  </table>
+                </div>
+              </div><br/>
+
+              Checked By: &nbsp <label id="cby" name="cby">Name</label><br/>
+              Date Checked : &nbsp <label id="cdate" name="cdate">20200202</label><br/>
+              <textarea id="cremark" name=cremark readonly rows="3" style="width: 100%" placeholder="Remarks"></textarea><br/>
+
+              Approved By: &nbsp <label id="aby" name="aby">Name</label><br/>
+              Date Approved : &nbsp <label id="adate" name="adate">20200202</label><br/>
+              <textarea id="aremark" name=aremark readonly rows="3" style="width: 100%" placeholder="Remarks"></textarea>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"  id="view_close" name="view_close"><i class="fa fa-times" aria-hidden="true"></i>&nbspClose</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade vview-req" id="vviewReq" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">View Requisition</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" id="time_vview" name="time_vview">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+              Requisition No.: &nbsp <label id="vvreq" name="vvreq">Name</label><br/>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-bordered" id="vview_table" name="vview_table" width="100%" cellspacing="0">
+                    <thead>
+                      <tr>
+                        <th>Quantity</th>
+                        <th>Particular</th>
+                        <th>Amount</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody id="vview_tbody"></tbody>
+                  </table>
+                </div>
+              </div><br/>
+
+              Checked By: &nbsp <label id="vcby" name="vcby">Name</label><br/>
+              Date Checked : &nbsp <label id="vcdate" name="vcdate">20200202</label><br/>
+              <textarea id="vcremark" name=vcremark readonly rows="3" style="width: 100%" placeholder="Remarks"></textarea><br/>
+
+              Approved By: &nbsp <label id="vaby" name="vaby">Name</label><br/>
+              Date Approved : &nbsp <label id="vadate" name="vadate">20200202</label><br/>
+              <textarea id="varemark" name="varemark" readonly rows="3" style="width: 100%" placeholder="Remarks"></textarea>
+
+              <center>
+                <img src="img/received.png" height="1" width="15%">
+              </center>
+              Date Received : &nbsp <label id="dreceive" name="dreceive">20200202</label><br/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"  id="vview_close" name="vview_close"><i class="fa fa-times" aria-hidden="true"></i>&nbspClose</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<!-- EDIT MODAL -->
+    <div class="modal fade edit-req" id="editReq" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Edit Requisition</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" id="time_edit" name="time_close">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+              Requisition No.: &nbsp <label id="ereq" name="ereq">Name</label><br/>
+              <span style="display: inline;">
+                Quantity :&nbsp<input type="number" name="edit_qnty" id="edit_qnty" style="width:100px">&nbsp
+                <select id="edit_type" name="edit_type">
+                    <option value="pcs">PCS</option>
+                    <option value="rim">RIM</option>
+                    <option value="box">BOX</option>
+                </select> &nbsp
+                Particular :&nbsp<input type="text" name="edit_part" id="edit_part" style="width:110px"> &nbsp
+                Amount :&nbsp<input type="number" name="edit_amount" id="edit_amount" style="width:110px"> &nbsp
+                Total Amount :&nbsp<input type="number" name="edit_total" id="edit_total" style="width:110px">
+              </span><br><br>
+              <button type="button" class="btn btn-success" id="edit_particular" name="edit_particular" style="margin-bottom: 5px"><i class="fa fa-save" aria-hidden="true"></i>&nbspAdd Particular</button>
+
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table table-bordered" id="edit_table" name="edit_table" width="100%" cellspacing="0">
+                    <thead>
+                      <tr>
+                        <th>Quantity</th>
+                        <th>Particular</th>
+                        <th>Amount</th>
+                        <th>Total</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="edit_tbody"></tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"  id="edit_close" name="edit_close"><i class="fa fa-times" aria-hidden="true"></i>&nbspClose</button>
+                <button type="button" class="btn btn-primary" id="edit_trans" name="edit_trans" data-dismiss="modal"><i class="fa fa-save" aria-hidden="true"></i>&nbspSave</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+            
+        <!-- Static Table Start -->
+        <div class="data-table-area mg-tb-15">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="sparkline13-list">
+                            <div class="sparkline13-hd">
+                                <div class="main-sparkline13-hd">
+                                    <h1>MY REQUISITIONS</h1>
+                                </div>
+                            </div>
+                            <div class="sparkline13-graph">
+                                <div class="datatable-dashv1-list custom-datatable-overright">
+                                    <div id="toolbar">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".add-req">Add Requisition</button>
+                                    </div>
+                                    <div class="card mb-3">
+                                      <div class="card-body">
+                                        <div class="table-responsive">
+                                          <table class="table table-bordered" id="dataTable" name="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                              <tr>
+                                                <th data-field="id">Requisition No</th>
+                                                <th data-field="name" data-editable="true">Requisition Date</th>
+                                                <th data-field="company" data-editable="true">Status</th>
+                                                <th data-field="action">Action</th>
+                                              </tr>
+                                            </thead>
+                                            <!-- <tfoot>
+                                              <tr>
+                                                <th data-field="id">Requisition No</th>
+                                                <th data-field="name" data-editable="true">Requisition Date</th>
+                                                <th data-field="company" data-editable="true">Status</th>
+                                                <th data-field="action">Action</th>
+                                              </tr>
+                                            </tfoot> -->
+                                          </table>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <!-- <table style="height: 300px" id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
+                                        data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                        <thead>
+                                            <tr>
+                                                <th data-field="id">Requisition No</th>
+                                                <th data-field="name" data-editable="true">Requisition Date</th>
+                                                <th data-field="company" data-editable="true">Status</th>
+                                                <th data-field="action">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id='tablebody'>
+                                            
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th data-field="id">Requisition No</th>
+                                                <th data-field="name" data-editable="true">Requisition Date</th>
+                                                <th data-field="company" data-editable="true">Status</th>
+                                                <th data-field="action">Action</th>
+                                            </tr>
+                                        </tfoot>
+                                    </table> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Static Table End -->
+        <div class="footer-copyright-area">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="footer-copy-right">
+                            <p>Copyright © 2020 Global Dominion Financing Inc. All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jquery
+        ============================================ -->
+    <script src="js/vendor/jquery-1.11.3.min.js"></script>
+    <!-- bootstrap JS
+        ============================================ -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- wow JS
+        ============================================ -->
+    <script src="js/wow.min.js"></script>
+    <!-- price-slider JS
+        ============================================ -->
+    <script src="js/jquery-price-slider.js"></script>
+    <!-- meanmenu JS
+        ============================================ -->
+    <script src="js/jquery.meanmenu.js"></script>
+    <!-- owl.carousel JS
+        ============================================ -->
+    <script src="js/owl.carousel.min.js"></script>
+    <!-- sticky JS
+        ============================================ -->
+    <script src="js/jquery.sticky.js"></script>
+    <!-- scrollUp JS
+        ============================================ -->
+    <script src="js/jquery.scrollUp.min.js"></script>
+    <!-- mCustomScrollbar JS
+        ============================================ -->
+    <script src="js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="js/scrollbar/mCustomScrollbar-active.js"></script>
+    <!-- metisMenu JS
+        ============================================ -->
+    <script src="js/metisMenu/metisMenu.min.js"></script>
+    <script src="js/metisMenu/metisMenu-active.js"></script>
+    <!-- data table JS
+        ============================================ -->
+
+    <!--  editable JS
+        ============================================ -->
+    <script src="js/editable/jquery.mockjax.js"></script>
+    <script src="js/editable/mock-active.js"></script>
+    <script src="js/editable/select2.js"></script>
+    <script src="js/editable/moment.min.js"></script>
+    <script src="js/editable/bootstrap-datetimepicker.js"></script>
+    <script src="js/editable/bootstrap-editable.js"></script>
+    <script src="js/editable/xediable-active.js"></script>
+    <!-- Chart JS
+        ============================================ -->
+    <script src="js/chart/jquery.peity.min.js"></script>
+    <script src="js/peity/peity-active.js"></script>
+    <!-- tab JS
+        ============================================ -->
+    <script src="js/tab.js"></script>
+    <!-- plugins JS
+        ============================================ -->
+    <script src="js/plugins.js"></script>
+    <!-- main JS
+        ============================================ -->
+    <script src="js/main.js"></script>
+    <script src="js/mine/employee.js"></script>
+
+     <!-- Bootstrap core JavaScript-->
+      <script src="vendors/jquery/jquery.min.js"></script>
+      <script src="vendors/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+      <!-- Core plugin JavaScript-->
+      <script src="vendors/jquery-easing/jquery.easing.min.js"></script>
+
+      <!-- Page level plugin JavaScript-->
+      <script src="vendors/chart.js/Chart.min.js"></script>
+      <script src="vendors/datatables/jquery.dataTables.js"></script>
+      <script src="vendors/datatables/dataTables.bootstrap4.js"></script>
+
+      <!-- Custom scripts for all pages-->
+      <script src="js/sb-admin.min.js"></script>
+</body>
+
+</html>
