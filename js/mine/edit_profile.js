@@ -1,6 +1,24 @@
 var currUserName = '';
 $(document).ready(function()
 {
+	$(document).ready(function()
+	{
+		$.ajax(
+		{
+			type : "POST",
+			url : '././php/check-session.php',
+			data : "",
+			dataType : "json",
+			success : function(data)
+			{
+				if (!data['priv'])
+				{
+					location.replace('login.html');
+				}
+			}	
+		});
+	});
+
 	$.ajax(
 	{
 		type : "POST",
@@ -20,24 +38,28 @@ $(document).ready(function()
 		}
 	});
 
-	$.ajax(
+	branches = ['Antipolo', 'Bacolod', 'Baguio', 'Baler', 'Baliuag', 'Bataan', 'Batangas', 'Benguet',
+				'Bohol', 'Bukidnon','Bulacan', 'Butuan', 'Cabanatuan', 'Cagayan De Oro', 'Cainta',
+	'Calamba', 'Capiz', 'Cauayan', 'Cavite', 'Cebu', 'Consolacion', 'Dagupan', 'Dau',
+					'Davao', 'Digos', 'Digos City', 'Digos Trike', 'Dumaguete', 'Gapan', 'General Santos',
+	'Harrison Plaza', 'Head Office', 'Ilocos Norte', 'Iloilo', 'Imus', 'Intramuros',
+	'Isabela', 'Kabankalan', 'Kidapawan', 'Koronadal', 'La Trinidad', 'La Union', 'Lagro',
+	'Laguna', 'Laoag', 'Las Piñas', 'Lipa', 'Makati', 'Malaybalay', 'Malolos', 'Mandaluyong',
+	'Mandaue', 'Manila', 'Marikina', 'MBL', 'Meycauayan', 'Muntinlupa', 'Naga',
+	'Negros Occidental', 'Negros Oriental', 'Nueva Ecija', 'Olongapo', 'Pampanga',
+	'Paranaque', 'Pasay', 'Pasig', 'POEA', 'Quezon Avenue', 'Quezon City', 'Roxas',
+	'San Fernando PA', 'San Jose', 'San Mateo', 'San Pablo', 'Santiago', 'SC Koronadal',
+	'SC Panabo', 'SME Antipolo', 'SME Marikina', 'Tacloban', 'Tagbilaran', 'Tagum',
+	'Talavera', 'Tanay', 'Tandang Sora', 'Tarlac', 'Tuguegarao', 'Tuguegarao City',
+	'Valencia','Valenzuela'];
+
+	bLen = branches.length;
+
+	for (i = 0; i < bLen; i++)
 	{
-		type : "POST",
-		url : '././php/getDept.php',
-		data : "",
-		dataType: "json",
-		success : function(data)
-		{
-			len = data.length;
-
-			for (var i = 0; i < len; i++)
-  			{
-  				branch = data[i]['branch'];
-
-  				$('#branch').append($('<option>', {value:branch, text:branch}));
-  			}
-		}
-	});
+		text = branches[i];
+		$('#branch').append($('<option>', {value:text, text:text}));
+	}
 
 	$.ajax(
 	{

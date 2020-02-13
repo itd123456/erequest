@@ -48,7 +48,7 @@ $(document).ready(function()
 						'<button title="view" data-toggle="modal" data-target=".edit-req" onclick=edit('+id+') class="btn btn-primary"><i class="fa fa-eye"></i>&nbspView</button> &nbsp'
 					]).draw( false );
 				}
-				else if (status == 'Approved')
+				else
 				{
 					date = data[i]['app_date'];
 
@@ -204,6 +204,13 @@ function view(i)
 		dataType : "json",
 		success : function(data)
 		{
+			$('#cby').html('');
+			$('#cdate').html('');
+			$('#cremark').val('');
+			$('#aby').html('');
+			$('#adate').html('');
+			$('#aremark').val('');
+
 			$('#v_req').html(i);
 
 			cby = data[0]['checked_by'];

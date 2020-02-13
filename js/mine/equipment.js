@@ -442,6 +442,15 @@ function view(i)
 		dataType : "json",
 		success : function(data)
 		{
+			$('#vhead').html('');
+			$('#hdate').html('');
+			$('#vcheck').html('');
+			$('#cdate').html('');
+			$('#vadmin').html('');
+			$('#adate').html('');
+			$('#vgm').html('');
+			$('#gdate').html('');
+
 			user = data[0]['user_name'];
 			vdate = data[0]['date'];
 			vhead = data[0]['head_name'];

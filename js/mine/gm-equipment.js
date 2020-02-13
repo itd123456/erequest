@@ -88,6 +88,15 @@ function vview(i)
 		dataType : "json",
 		success : function(data)
 		{
+			$('#vvhead').html('');
+			$('#vhdate').html('');
+			$('#vvcheck').html('');
+			$('#vcdate').html('');
+			$('#vvadmin').html('');
+			$('#vvadate').html('');
+			$('#vvgm').html('');
+			$('#vvgdate').html('');
+
 			user = data[0]['user_name'];
 			vdate = data[0]['date'];
 			vbranch = data[0]['branch'];
