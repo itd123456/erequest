@@ -105,7 +105,7 @@ $('#register_btn').on('click', function()
 								
 							}
 						});
-						window.location.replace('_register_.html');
+						location.reload();
 					}
 				}
 			});

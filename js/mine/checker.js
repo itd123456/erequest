@@ -20,6 +20,8 @@ $(document).ready(function()
 {
 	var t = $('#dataTable').DataTable();
 	var c = $('#checkTable').DataTable();
+	var ct = $('#cTable').DataTable();
+
 	$.ajax(
 	{
 		type : "POST",
@@ -50,14 +52,26 @@ $(document).ready(function()
 				}
 				else if (status == 'Checked')
 				{
-					date = data[i]['check_date'];
+					ct.row.add(
+					[
+						id,
+						name,
+						date,
+						status,
+						'<button title="view" data-toggle="modal" data-target=".view-req" onclick=view('+id+') class="btn btn-primary"><i class="fa fa-eye"></i>&nbspView</button> &nbsp'
+					]).draw( false );
+
+				}
+				else if (status == 'Approved')
+				{
+					date = data[i]['app_date'];
 
 					c.row.add(
 					[
 						id,
 						name,
 						date,
-						status,
+						'Approved by Admin',
 						'<button title="view" data-toggle="modal" data-target=".view-req" onclick=view('+id+') class="btn btn-primary"><i class="fa fa-eye"></i>&nbspView</button> &nbsp'
 					]).draw( false );
 
