@@ -113,6 +113,8 @@ function rview(i)
 			}
 
 
+			grandTotal = 0;
+
 			len = data.length;
 			for (i = 0; i < len; i++)
 			{
@@ -121,11 +123,28 @@ function rview(i)
 				l = item.length;
 				for (j = 0; j < l; j++)
 				{
+					qnty = item[j]['qnty'];
+					type = item[j]['type'];
 					items = item[j]['item'];
+					amount = formatNumber(item[j]['amount']);
+					total = parseFloat(item[j]['total']);
+					grandTotal += total;
+					total = formatNumber(total);
 
-					$('#rview_table tbody').append('<tr><td>' + items + '</td></tr>');
+					obj = 
+					{
+						qnty : qnty,
+						type : type,
+						item : items,
+						amount : item[j]['amount'],
+						total : item[j]['total']
+					}
+
+					$('#rview_table tbody').append('<tr><td>' + qnty + ' ' + type + '</td><td>' + items + '</td><td>' + amount + '</td><td>' + total + '</td></tr>');
 				}
 			}
+			grandTotal = formatNumber(grandTotal);
+			$('#rview_table tbody').append('<tr><td>' + '<font color="red">GRAND TOTAL</font>' + '</td><td>' + ' ' + '</td><td>' + ' ' + '</td><td><font color="red"> P ' + grandTotal + '</font></td></tr>');
 		}
 	});
 }
@@ -200,6 +219,7 @@ function vview(i)
 				$('#vvaddition').prop("checked", true);
 			}
 
+			grandTotal = 0;
 
 			len = data.length;
 			for (i = 0; i < len; i++)
@@ -209,11 +229,28 @@ function vview(i)
 				l = item.length;
 				for (j = 0; j < l; j++)
 				{
+					qnty = item[j]['qnty'];
+					type = item[j]['type'];
 					items = item[j]['item'];
+					amount = formatNumber(item[j]['amount']);
+					total = parseFloat(item[j]['total']);
+					grandTotal += total;
+					total = formatNumber(total);
 
-					$('#vview_table tbody').append('<tr><td>' + items + '</td></tr>');
+					obj = 
+					{
+						qnty : qnty,
+						type : type,
+						item : items,
+						amount : item[j]['amount'],
+						total : item[j]['total']
+					}
+
+					$('#vview_table tbody').append('<tr><td>' + qnty + ' ' + type + '</td><td>' + items + '</td><td>' + amount + '</td><td>' + total + '</td></tr>');
 				}
 			}
+			grandTotal = formatNumber(grandTotal);
+			$('#vview_table tbody').append('<tr><td>' + '<font color="red">GRAND TOTAL</font>' + '</td><td>' + ' ' + '</td><td>' + ' ' + '</td><td><font color="red"> P ' + grandTotal + '</font></td></tr>');
 		}
 	});
 }
@@ -237,3 +274,8 @@ $('#rviewReq').on('hidden.bs.modal', function ()
 {
   	$('#view_tbody').children('tr').remove();
 });
+
+function formatNumber(num) 
+{
+  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+}

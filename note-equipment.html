@@ -79,10 +79,6 @@
 </head>
 
 <body>
-    <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
@@ -170,13 +166,17 @@
             <div class="modal-body">
                <center><img src="img/global.png" alt="GFDI" height="8" width="60%"><br>
                 <label style="font-size: 18px"><strong>REQUEST SLIP</strong></label></center><br>
+               Request No.: &nbsp <label id="vreq" name="vreq">Name</label><br/>
                Name : &nbsp <label id="vname" name="vname">Name</label> <span style="margin-left: 30%">Date : <label id="vdate" name="vdate">Date</label></span><br/>
               <div class="card-body">
                 <div class="table-responsive">
                   <table class="table uk-table uk-table-hover uk-table-striped" id="view_table" name="view_table" width="100%" cellspacing="0">
                     <thead>
                       <tr>
+                        <th>Quantity</th>
                         <th>Item (s)</th>
+                        <th>Amount</th>
+                        <th>Total</th>
                       </tr>
                     </thead>
                     <tbody id="view_tbody"></tbody>
@@ -211,13 +211,17 @@
             <div class="modal-body">
                <center><img src="img/global.png" alt="GFDI" height="8" width="60%"><br>
                 <label style="font-size: 18px"><strong>REQUEST SLIP</strong></label></center><br>
+               Request No.: &nbsp <label id="vvreq" name="vvreq">Name</label><br/>
                Name : &nbsp <label id="vvname" name="vvname">Name</label> <span style="margin-left: 30%">Date : <label id="vvdate" name="vvdate">Date</label></span><br/>
               <div class="card-body">
                 <div class="table-responsive">
                   <table class="table uk-table uk-table-hover uk-table-striped" id="vview_table" name="vview_table" width="100%" cellspacing="0">
                     <thead>
                       <tr>
+                        <th>Quantity</th>
                         <th>Item (s)</th>
+                        <th>Amount</th>
+                        <th>Total</th>
                       </tr>
                     </thead>
                     <tbody id="vview_tbody"></tbody>

@@ -18,63 +18,7 @@ $(document).ready(function()
 
 $(document).ready(function()
 {
-	var t = $('#dataTable').DataTable();
-	var ad = $('#adTable').DataTable();
-
-	$.ajax(
-	{
-		type : "POST",
-		url : '././php/get-request.php',
-		data : "",
-		dataType : "json",
-		success : function(data)
-		{
-			len = data.length;
-			for (i = 0; i < len; i++)
-			{
-				id = data[i]['id'];
-				name = data[i]['name'];
-				date = data[i]['date'];
-				status = data[i]['status'];
-				item = data[i]['item'];
-
-				if (status == 'Checked by Admin(Checker)')
-				{
-					t.row.add(
-					[
-						id,
-						name,
-						date,
-						'Checked by Admin(Checker)',
-						'<button title="view" data-toggle="modal" data-target=".view-req" onclick=view('+id+') class="btn btn-primary"><i class="fa fa-eye"></i>&nbspView</button>'
-					]).draw( false );
-				}
-				else if (status == 'Declined by Admin')
-				{
-					ad.row.add(
-					[
-						id,
-						name,
-						date,
-						'Declined',
-						'<button title="view" data-toggle="modal" data-target=".vview-req" onclick=vview('+id+') class="btn btn-primary"><i class="fa fa-eye"></i>&nbspView</button> &nbsp'
-					]).draw( false );
-				}
-				else if (status != 'Approved by Department Head' && status != 'Pending' && status != 'Declined by Department Head' && status != 'Checked by Admin(Checker)')
-				{
-					ad.row.add(
-					[
-						id,
-						name,
-						date,
-						'Approved',
-						'<button title="view" data-toggle="modal" data-target=".vview-req" onclick=vview('+id+') class="btn btn-primary"><i class="fa fa-eye"></i>&nbspView</button> &nbsp'
-					]).draw( false );
-
-				}
-			}
-		}	
-	});
+	initTable();
 });
 
 ////////////////////////////////////////////////   VVIEW BUTTON
@@ -133,6 +77,8 @@ function vview(i)
 			}
 
 
+			grandTotal = 0;
+
 			len = data.length;
 			for (i = 0; i < len; i++)
 			{
@@ -141,11 +87,31 @@ function vview(i)
 				l = item.length;
 				for (j = 0; j < l; j++)
 				{
+					qnty = item[j]['qnty'];
+					type = item[j]['type'];
 					items = item[j]['item'];
+					amount = formatNumber(item[j]['amount']);
+					total = parseFloat(item[j]['total']);
+					grandTotal += total;
+					total = formatNumber(total);
 
-					$('#vview_table tbody').append('<tr><td>' + items + '</td></tr>');
+					obj = 
+					{
+						qnty : qnty,
+						type : type,
+						item : items,
+						amount : item[j]['amount'],
+						total : item[j]['total']
+					}
+
+					editItems.push(obj);
+					editString = JSON.stringify(editItems);
+
+					$('#vview_table tbody').append('<tr><td>' + qnty + ' ' + type + '</td><td>' + items + '</td><td>' + amount + '</td><td>' + total + '</td></tr>');
 				}
 			}
+			grandTotal = formatNumber(grandTotal);
+			$('#vview_table tbody').append('<tr><td>' + '<font color="red">GRAND TOTAL</font>' + '</td><td>' + ' ' + '</td><td>' + ' ' + '</td><td><font color="red"> P ' + grandTotal + '</font></td></tr>');
 		}
 	});
 }
@@ -162,6 +128,8 @@ $('#time_vview').on('click', function()
 
 
 ////////////////////////////////////////////////   VIEW BUTTON
+editItems = [];
+editString = '';
 function view(i)
 {
 	eID = i;
@@ -207,6 +175,8 @@ function view(i)
 			}
 
 
+			grandTotal = 0;
+
 			len = data.length;
 			for (i = 0; i < len; i++)
 			{
@@ -215,14 +185,119 @@ function view(i)
 				l = item.length;
 				for (j = 0; j < l; j++)
 				{
+					qnty = item[j]['qnty'];
+					type = item[j]['type'];
 					items = item[j]['item'];
+					amount = formatNumber(item[j]['amount']);
+					total = parseFloat(item[j]['total']);
+					grandTotal += total;
+					total = formatNumber(total);
 
-					$('#view_table tbody').append('<tr><td>' + items + '</td></tr>');
+					obj = 
+					{
+						qnty : qnty,
+						type : type,
+						item : items,
+						amount : item[j]['amount'],
+						total : item[j]['total']
+					}
+
+					editItems.push(obj);
+					editString = JSON.stringify(editItems);
+
+					$('#view_table tbody').append('<tr><td>' + qnty + ' ' + type + '</td><td>' + items + '</td><td>' + amount + '</td><td>' + total + '</td><td> <button class="btn btn-info" style="width: 100%" onclick="editItem(this)"><i class="fa fa-pencil" aria-hidden="true"></i>&nbspEdit</button> </td></tr>');
 				}
 			}
+			grandTotal = formatNumber(grandTotal);
+			$('#view_table tbody').append('<tr><td>' + '<font color="red">GRAND TOTAL</font>' + '</td><td>' + ' ' + '</td><td>' + ' ' + '</td><td><font color="red"> P ' + grandTotal + '</font></td></tr>');
 		}
 	});
 }
+
+ind = '';
+function editItem(i)
+{
+	row = idx = i.closest('tr').rowIndex;
+	ind = row - 1;
+
+	qntyText = document.getElementById("view_table").rows[row].cells[0].innerHTML;
+	qntyNum = qntyText.match(/\d+/g).map(Number);
+	qnty = qntyNum[0];
+
+	$('#eqnty').val(qnty);
+
+	if (qntyText.includes('pcs'))
+	{
+		$('#etype').val('pcs');
+	}
+	else if (qntyText.includes('box'))
+	{
+		$('#etype').val('box');
+	}
+	else if (qntyText.includes('rim'))
+	{
+		$('#etype').val('rim');
+	}
+	else if (qntyText.includes('pack'))
+	{
+		$('#etype').val('pack');
+	}
+
+	item = document.getElementById("view_table").rows[row].cells[1].innerHTML;
+	amount = document.getElementById("view_table").rows[row].cells[2].innerHTML;
+	amount = amount.replace(',','');
+	total = document.getElementById("view_table").rows[row].cells[3].innerHTML;
+	total = total.replace(',','');
+
+	$('#eItem').val(item);
+	$('#eamount').val(amount);
+	$('#etotal').val(total);
+}
+
+$('#addeItem').on('click', function()
+{
+	$('#view_tbody').children('tr').remove();
+
+	obj = 
+	{
+		qnty : $('#eqnty').val(),
+		type : $('#etype').val(),
+		item : $('#eItem').val(),
+		amount : $('#eamount').val(),
+		total : $('#etotal').val()
+	}
+
+	editItems[ind] = obj;
+	editString = JSON.stringify(editItems);
+
+	$('#view_tbody').children('tr').remove();
+
+	grandTotal = 0;
+
+	len = editItems.length;
+
+	for (i = 0; i < len; i++)
+	{
+		qnty = editItems[i]['qnty'];
+		type = editItems[i]['type'];
+		items = editItems[i]['item'];
+		amount = formatNumber(editItems[i]['amount']);
+		total = parseFloat(editItems[i]['total']);
+		grandTotal += total;
+		total = formatNumber(total);
+
+		$('#view_table tbody').append('<tr><td>' + qnty + ' ' + type + '</td><td>' + items + '</td><td>' + amount + '</td><td>' + total + '</td><td> <button class="btn btn-info" style="width: 100%" onclick="editItem(this)"><i class="fa fa-pencil" aria-hidden="true"></i>&nbspEdit</button> </td></tr>');
+	}
+
+	grandTotal = formatNumber(grandTotal);
+	$('#view_table tbody').append('<tr><td>' + '<font color="red">GRAND TOTAL</font>' + '</td><td>' + ' ' + '</td><td>' + ' ' + '</td><td><font color="red"> P ' + grandTotal + '</font></td></tr>');
+	
+	$('#eqnty').val('');
+	$('#etype').val('pcs');
+	$('#eItem').val('');
+	$('#eamount').val('');
+	$('#etotal').val('');
+});
 
 $('#check').on('click', function()
 {
@@ -230,7 +305,7 @@ $('#check').on('click', function()
 	{
 		type : "POST",
 		url : "././php/admin-equip.php",
-		data : {id : eID},
+		data : {id : eID, item: editString},
 		dataType : "",
 		success : function()
 		{
@@ -239,66 +314,7 @@ $('#check').on('click', function()
 
 			$('#view_tbody').children('tr').remove();
 
-			var t = $('#dataTable').DataTable();
-			var ad = $('#adTable').DataTable();
-
-			t.rows().remove().draw();
-			ad.rows().remove().draw();
-
-			$.ajax(
-			{
-				type : "POST",
-				url : '././php/get-request.php',
-				data : "",
-				dataType : "json",
-				success : function(data)
-				{
-					len = data.length;
-					for (i = 0; i < len; i++)
-					{
-						id = data[i]['id'];
-						name = data[i]['name'];
-						date = data[i]['date'];
-						status = data[i]['status'];
-						item = data[i]['item'];
-
-						if (status == 'Checked by Admin(Checker)')
-						{
-							t.row.add(
-							[
-								id,
-								name,
-								date,
-								'Checked by Admin(Checker)',
-								'<button title="view" data-toggle="modal" data-target=".view-req" onclick=view('+id+') class="btn btn-primary"><i class="fa fa-eye"></i>&nbspView</button>'
-							]).draw( false );
-						}
-						else if (status == 'Declined by Admin')
-						{
-							ad.row.add(
-							[
-								id,
-								name,
-								date,
-								'Declined',
-								'<button title="view" data-toggle="modal" data-target=".vview-req" onclick=vview('+id+') class="btn btn-primary"><i class="fa fa-eye"></i>&nbspView</button> &nbsp'
-							]).draw( false );
-						}
-						else if (status != 'Approved by Department Head' && status != 'Pending' && status != 'Declined by Department Head' && status != 'Checked by Admin(Checker)')
-						{
-							ad.row.add(
-							[
-								id,
-								name,
-								date,
-								'Approved',
-								'<button title="view" data-toggle="modal" data-target=".vview-req" onclick=vview('+id+') class="btn btn-primary"><i class="fa fa-eye"></i>&nbspView</button> &nbsp'
-							]).draw( false );
-
-						}
-					}
-				}	
-			});
+			initTable();
 		}
 	});
 });
@@ -313,68 +329,12 @@ $('#decline').on('click', function()
 		dataType : "",
 		success : function()
 		{
+			editItems = [];
+			editString = '';
+
 			$('#view_tbody').children('tr').remove();
 
-			var t = $('#dataTable').DataTable();
-			var ad = $('#adTable').DataTable();
-
-			t.rows().remove().draw();
-			ad.rows().remove().draw();
-
-			$.ajax(
-			{
-				type : "POST",
-				url : '././php/get-request.php',
-				data : "",
-				dataType : "json",
-				success : function(data)
-				{
-					len = data.length;
-					for (i = 0; i < len; i++)
-					{
-						id = data[i]['id'];
-						name = data[i]['name'];
-						date = data[i]['date'];
-						status = data[i]['status'];
-						item = data[i]['item'];
-
-						if (status == 'Checked by Admin(Checker)')
-						{
-							t.row.add(
-							[
-								id,
-								name,
-								date,
-								'Checked by Admin(Checker)',
-								'<button title="view" data-toggle="modal" data-target=".view-req" onclick=view('+id+') class="btn btn-primary"><i class="fa fa-eye"></i>&nbspView</button>'
-							]).draw( false );
-						}
-						else if (status == 'Declined by Admin')
-						{
-							ad.row.add(
-							[
-								id,
-								name,
-								date,
-								'Declined',
-								'<button title="view" data-toggle="modal" data-target=".vview-req" onclick=vview('+id+') class="btn btn-primary"><i class="fa fa-eye"></i>&nbspView</button> &nbsp'
-							]).draw( false );
-						}
-						else if (status != 'Approved by Department Head' && status != 'Pending' && status != 'Declined by Department Head' && status != 'Checked by Admin(Checker)')
-						{
-							ad.row.add(
-							[
-								id,
-								name,
-								date,
-								'Approved',
-								'<button title="view" data-toggle="modal" data-target=".vview-req" onclick=vview('+id+') class="btn btn-primary"><i class="fa fa-eye"></i>&nbspView</button> &nbsp'
-							]).draw( false );
-
-						}
-					}
-				}	
-			});
+			initTable();
 		}
 	});
 });
@@ -399,3 +359,91 @@ $('#viewReq').on('hidden.bs.modal', function ()
 {
   	$('#view_tbody').children('tr').remove();
 });
+
+
+$("#eamount").keyup(function() 
+{
+	qnty = $('#eqnty').val();
+	amunt = $(this).val();
+	total = qnty * amunt;
+
+	$('#etotal').val(total.toFixed(2));
+});
+
+$("#eqnty").keyup(function() 
+{
+	qnty = $(this).val();
+	amunt = $('#eamount').val();
+	total = qnty * amunt;
+
+	$('#etotal').val(total.toFixed(2));
+});
+
+function formatNumber(num) 
+{
+  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+}
+
+function initTable()
+{
+	var t = $('#dataTable').DataTable();
+	var ad = $('#adTable').DataTable();
+
+	t.rows().remove().draw();
+	ad.rows().remove().draw();
+
+	$.ajax(
+	{
+		type : "POST",
+		url : '././php/get-request.php',
+		data : "",
+		dataType : "json",
+		success : function(data)
+		{
+			len = data.length;
+			for (i = 0; i < len; i++)
+			{
+				id = data[i]['id'];
+				name = data[i]['name'];
+				date = data[i]['date'];
+				status = data[i]['status'];
+				item = data[i]['item'];
+
+				if (status == 'Checked by Admin(Checker)')
+				{
+					t.row.add(
+					[
+						id,
+						name,
+						date,
+						'Checked by Admin(Checker)',
+						'<button title="view" data-toggle="modal" data-target=".view-req" onclick=view('+id+') class="btn btn-primary"><i class="fa fa-eye"></i>&nbspView</button>'
+					]).draw( false );
+				}
+				else if (status == 'Declined by Admin')
+				{
+					ad.row.add(
+					[
+						id,
+						name,
+						date,
+						'Declined',
+						'<button title="view" data-toggle="modal" data-target=".vview-req" onclick=vview('+id+') class="btn btn-primary"><i class="fa fa-eye"></i>&nbspView</button> &nbsp'
+					]).draw( false );
+				}
+				else if (status != 'Approved by Department Head' && status != 'Pending' && status != 'Declined by Department Head' && status != 'Checked by Admin(Checker)')
+				{
+					ad.row.add(
+					[
+						id,
+						name,
+						date,
+						'Approved',
+						'<button title="view" data-toggle="modal" data-target=".vview-req" onclick=vview('+id+') class="btn btn-primary"><i class="fa fa-eye"></i>&nbspView</button> &nbsp'
+					]).draw( false );
+
+				}
+			}
+		}	
+	});
+}

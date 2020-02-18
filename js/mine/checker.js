@@ -67,6 +67,20 @@ $(document).ready(function()
 	});
 });
 
+$('#genRequisition').on('click', function()
+{
+	month = $('#checkedMonth').val();
+	year = $('#checkedYear').val();
+
+	param = 
+	{
+		month : month,
+		year : year
+	}
+
+	window.open('././php/req_excel.php?mon='+month+'&yr='+year);
+});
+
 ////////////////////////////////////////////   DELETE BUTTON
 function del(i)
 {
@@ -102,6 +116,7 @@ function edit(i)
 			len = data.length;
 			for (i = 0; i < len; i++)
 			{
+				grandTotal = 0;
 				name = data[i]['name'];
 				$('#name').html(name);
 
@@ -123,6 +138,7 @@ function edit(i)
 					part = item[j]['part'];
 					amount = item[j]['amount'];
 					total = item[j]['total'];
+					grandTotal += parseFloat(total);
 
 					obj = 
 					{
@@ -139,6 +155,7 @@ function edit(i)
 					$('#edit_table tbody').append('<tr><td class="qnty">' + qnty + ' ' + type + '</td><td>' + part + '</td><td>' + amount + '</td><td>' + total + '</td><td>' +
 			  									  '<button style="width:100%" type="button" class="btn btn-info" onclick="editDel(this)"><i class="fa fa-pencil" aria-hidden="true"></i>&nbspEdit</button>');
 				}
+				$('#edit_table tbody').append('<tr><td>' + '<font color="red">GRAND TOTAL</font>' + '</td><td>' + ' ' + '</td><td>' + ' ' + '</td><td><font color="red"> P ' + grandTotal.toFixed(2) + '</font></td></tr>');
 			}
 		}
 	});
@@ -167,6 +184,10 @@ function editDel(i)
 	{
 		$('#edit_type').val('rim');
 	}
+	else if (qntyText.includes('pack'))
+	{
+		$('#edit_type').val('pack');
+	}
 
 	partText = document.getElementById("edit_table").rows[row].cells[1].innerHTML;
 	$('#edit_part').val(partText);
@@ -177,6 +198,24 @@ function editDel(i)
 	total = document.getElementById("edit_table").rows[row].cells[3].innerHTML;
 	$('#edit_total').val(total);
 }
+
+$("#edit_amount").keyup(function() 
+{
+	qnty = $('#edit_qnty').val();
+	amunt = $(this).val();
+	total = qnty * amunt;
+
+	$('#edit_total').val(total.toFixed(2));
+});
+
+$("#edit_qnty").keyup(function() 
+{
+	qnty = $(this).val();
+	amunt = $('#edit_amount').val();
+	total = qnty * amunt;
+
+	$('#edit_total').val(total.toFixed(2));
+});
 
 $('#edit_particular').on('click', function()
 {
@@ -202,6 +241,7 @@ $('#edit_particular').on('click', function()
 
 		var len = edit_data.length;
 		$('#edit_tbody').children('tr').remove();
+		grandTotal = 0;
 		for (i = 0; i < len; i++)
 		{
 			qnty = edit_data[i]['qnty'];
@@ -209,6 +249,7 @@ $('#edit_particular').on('click', function()
 			part = edit_data[i]['part'];
 			amount = edit_data[i]['amount'];
 			total = edit_data[i]['total'];
+			grandTotal += parseFloat(total);
 
 			obj = 
 			{
@@ -222,6 +263,7 @@ $('#edit_particular').on('click', function()
 			$('#edit_table tbody').append('<tr><td class="qnty">' + qnty + ' ' + type + '</td><td>' + part + '</td><td>' + amount + '</td><td>' + total + '</td><td>' +
 	  									  '<button style="width:100%" type="button" class="btn btn-info" onclick="editDel(this)"><i class="fa fa-pencil" aria-hidden="true"></i>&nbspEdit</button>');
 		}
+		$('#edit_table tbody').append('<tr><td>' + '<font color="red">GRAND TOTAL</font>' + '</td><td>' + ' ' + '</td><td>' + ' ' + '</td><td><font color="red"> P ' + grandTotal.toFixed(2) + '</font></td></tr>');
 	}
 	
 	$('#edit_qnty').val('');
@@ -300,7 +342,8 @@ function view(i)
 		data : {id : i},
 		dataType : "json",
 		success : function(data)
-		{
+		{	
+			grandTotal = 0;
 			cby = data[0]['checked_by'];
 			cdate = data[0]['check_date'];
 			cremark = data[0]['check_remark'];
@@ -333,10 +376,11 @@ function view(i)
 					part = item[j]['part'];
 					amount = item[j]['amount'];
 					total = item[j]['total'];
-
+					grandTotal += parseFloat(total);
 					$('#view_table tbody').append('<tr><td>' + qnty + ' ' + type + '</td><td>' + part + '</td><td>' + amount + '</td><td>' + total + '</td></tr>');
 				}
 			}
+			$('#view_table tbody').append('<tr><td>' + '<font color="red">GRAND TOTAL</font>' + '</td><td>' + ' ' + '</td><td>' + ' ' + '</td><td><font color="red"> P ' + grandTotal.toFixed(2) + '</font></td></tr>');
 		}
 	});
 }

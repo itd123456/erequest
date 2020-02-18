@@ -184,13 +184,30 @@
                 <label style="font-size: 18px"><strong>REQUEST SLIP</strong></label></center><br>
                Request No. : &nbsp <label id="v_req" name ="v_req">0</label><br/>
                Name : &nbsp <label id="vname" name="vname">Name</label> <span style="margin-left: 30%">Date : <label id="vdate" name="vdate">Date</label></span><br/>
-               Branch : &nbsp <label id="vbranch" name="vbranch">Branch</label><br/>
+               Branch : &nbsp <label id="vbranch" name="vbranch">Branch</label><br/><br/>
+               <span style="display: inline;">
+                Quantity :&nbsp<input type="number" name="eqnty" id="eqnty" style="width: 23%"> &nbsp Type :&nbsp
+                <select id="etype" name="etype">
+                    <option value="pcs">PCS</option>
+                    <option value="rim">RIM</option>
+                    <option value="box">BOX</option>
+                    <option value="pack">PACK</option>
+                </select> <br/>
+                Item :&nbsp<input type="text" name="eItem" id="eItem" style="width:40%;"><br/>
+                Amount :&nbsp<input type="number" name="eamount" id="eamount" style="width:37%"> <br/>
+                Total Amount :&nbsp<input type="number" name="etotal" id="etotal" style="width:32.2%" disabled=""><br/>
+                <button class="btn btn-success" id="addeItem" name="addeItem"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Update Item</button>
+              </span><br><br/>
               <div class="card-body">
                 <div class="table-responsive">
                   <table class="table uk-table uk-table-hover uk-table-striped" id="view_table" name="view_table" width="100%" cellspacing="0">
                     <thead>
                       <tr>
-                        <th width="85%">Item (s)</th>
+                        <th>Quantity</th>
+                        <th>Item (s)</th>
+                        <th>Amount</th>
+                        <th>Total</th>
+                        <th width="10%">Action</th>
                       </tr>
                     </thead>
                     <tbody id="view_tbody"></tbody>
@@ -219,7 +236,7 @@
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">View Approved Equipment Request</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">View Equipment Request</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true" id="time_vview" name="time_vview">&times;</span>
                 </button>
@@ -235,7 +252,10 @@
                   <table class="table uk-table uk-table-hover uk-table-striped" id="vview_table" name="vview_table" width="100%" cellspacing="0">
                     <thead>
                       <tr>
+                        <th>Quantity</th>
                         <th>Item (s)</th>
+                        <th>Amount</th>
+                        <th>Total</th>
                       </tr>
                     </thead>
                     <tbody id="vview_tbody"></tbody>

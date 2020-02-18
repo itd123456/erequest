@@ -151,7 +151,7 @@
                                                             <i class="fa fa-user adminpro-user-rounded header-riht-inf" aria-hidden="true"></i>
                                                             <span class="admin-name"></span>
                                                         </a>
-                                                    <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
+                                                        <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
                                                         <li><a href="edit-profile.html"><span class="fa fa-user author-log-ic"></span>My Profile</a>
                                                         </li>
                                                         <li><a href="php/destroy-session.php"><span class="fa fa-lock author-log-ic"></span>Log Out</a>
@@ -173,7 +173,7 @@
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">View Checked Requisition</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">View Approved Requisition</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true" id="time_view" name="time_view">&times;</span>
                 </button>
@@ -219,7 +219,7 @@
         <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">Check Requisition</h5>
+                <h5 class="modal-title" id="exampleModalLongTitle">Checked Requisition</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true" id="time_edit" name="time_edit">&times;</span>
                 </button>
@@ -229,6 +229,22 @@
               Preapared By: &nbsp <label id="name" class="name">Name</label><br/>
               Requisition Date: &nbsp <label id="date" class="date">02-02-2020 10:00 AM</label><br/>
               Department: &nbsp <label id="depts" class="depts">Dept</label><br/><br/>
+              <span style="display: inline;">
+                Quantity :&nbsp<input type="number" name="edit_qnty" id="edit_qnty" style="width:100px">&nbsp
+                <select id="edit_type" name="edit_type">
+                    <option value="pcs">PCS</option>
+                    <option value="ream">REAM</option>
+                    <option value="box">BOX</option>
+                    <option value="roll">ROLL</option>
+                    <option value="pack">PACK</option>
+                </select> &nbsp
+                Particular :&nbsp<input type="text" name="edit_part" id="edit_part" style="width:110px"> &nbsp
+                Amount :&nbsp<input type="number" name="edit_amount" id="edit_amount" style="width:110px"> &nbsp
+                Total Amount :&nbsp<input type="number" name="edit_total" id="edit_total" style="width:110px" disabled="">
+              </span><br><br>
+
+              <button type="button" class="btn btn-success" id="edit_particular" name="edit_particular" style="margin-bottom: 5px"><i class="fa fa-save" aria-hidden="true"></i>&nbspSave Particular</button>
+              
               <div class="card-body">
                 <div class="table-responsive">
                   <table class="table table-bordered" id="edit_table" name="edit_table" width="100%" cellspacing="0">
@@ -238,6 +254,7 @@
                         <th>Particular</th>
                         <th>Amount</th>
                         <th>Total</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody id="edit_tbody"></tbody>
@@ -254,7 +271,6 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal"  id="edit_close" name="edit_close"><i class="fa fa-times" aria-hidden="true"></i>&nbspClose</button>
-                <button type="button" class="btn btn-danger" id="decline" name="decline" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i>&nbspDecline</button>
                 <button type="button" class="btn btn-success" id="edit_trans" name="edit_trans" data-dismiss="modal"><i class="fa fa-check" aria-hidden="true"></i>&nbspApprove</button>
             </div>
           </div>

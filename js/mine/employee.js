@@ -67,6 +67,8 @@ function vview(i)
 			$('#varemark').val(aremark);
 			$('#dreceive').html(dreceived);
 
+			grandTotal = 0;
+
 			len = data.length;
 			for (i = 0; i < len; i++)
 			{
@@ -81,9 +83,12 @@ function vview(i)
 					amount = item[j]['amount'];
 					total = item[j]['total'];
 
+					grandTotal += parseFloat(total);
+
 					$('#vview_table tbody').append('<tr><td>' + qnty + ' ' + type + '</td><td>' + part + '</td><td>' + amount + '</td><td>' + total + '</td></tr>');
 				}
 			}
+			$('#vview_table tbody').append('<tr><td>' + '<font color="red">GRAND TOTAL</font>' + '</td><td>' + ' ' + '</td><td>' + ' ' + '</td><td><font color="red"> P ' + grandTotal.toFixed(2) + '</font></td></tr>');
 		}
 	});
 }
@@ -198,6 +203,7 @@ function edit(i)
 		dataType : "json",
 		success : function(data)
 		{
+			grandTotal = 0;
 			$('#ereq').html(i);
 			len = data.length;
 			for (i = 0; i < len; i++)
@@ -212,7 +218,7 @@ function edit(i)
 					part = item[j]['part'];
 					amount = item[j]['amount'];
 					total = item[j]['total'];
-
+					grandTotal += parseFloat(total);
 					obj = 
 					{
 						qnty : qnty,
@@ -229,6 +235,7 @@ function edit(i)
 			  											'<button type="button" class="btn btn-danger" onclick="editDel(this)"><i class="fa fa-trash" aria-hidden="true"></i>&nbspDelete</button>');
 				}
 			}
+			$('#edit_table tbody').append('<tr><td>' + '<font color="red">GRAND TOTAL</font>' + '</td><td>' + ' ' + '</td><td>' + ' ' + '</td><td><font color="red"> P ' + grandTotal.toFixed(2) + '</font></td></tr>');
 		}
 	});
 }
@@ -253,10 +260,21 @@ $('#edit_particular').on('click', function()
 	edit_data.push(obj);
 	string_edit = JSON.stringify(edit_data);
 
-	console.log(edit_data);
+	$('#edit_tbody').children('tr').remove();
 
-	$('#edit_table tbody').append('<tr><td>' + qnty + ' ' + type + '</td><td>' + part + '</td><td>' + amount + '</td><td>' + total + '</td><td>' +
-			  	'<button type="button" class="btn btn-danger" onclick="editDel(this)"><i class="fa fa-trash" aria-hidden="true"></i>&nbspDelete</button>');
+	len = edit_data.length;
+
+	grandTotal = 0;
+
+	for (i = 0; i < len; i++)
+	{
+		$('#edit_table tbody').append('<tr><td>' + edit_data[i]['qnty'] + ' ' + edit_data[i]['type'] + '</td><td>' + edit_data[i]['part'] + '</td><td>' + edit_data[i]['amount'] + '</td><td>' + edit_data[i]['total'] + '</td><td>' +
+			  	'<button type="button" class="btn btn-danger" onclick="deleteRow(this)"><i class="fa fa-trash" aria-hidden="true"></i>&nbspDelete</button>');
+
+		grandTotal += parseFloat(edit_data[i]['total']);
+	}
+	
+	$('#edit_table tbody').append('<tr><td>' + '<font color="red">GRAND TOTAL</font>' + '</td><td>' + ' ' + '</td><td>' + ' ' + '</td><td><font color="red"> P ' + grandTotal.toFixed(2) + '</font></td><tr>');
 	
 	$('#edit_qnty').val('');
 	$('#edit_type').val('pcs');
@@ -301,6 +319,22 @@ function editDel(i)
 
 	edit_data.splice(r-1, 1);
 	string_edit = JSON.stringify(edit_data);
+
+	$('#edit_tbody').children('tr').remove();
+
+	len = edit_data.length;
+
+	grandTotal = 0;
+
+	for (i = 0; i < len; i++)
+	{
+		$('#edit_table tbody').append('<tr><td>' + edit_data[i]['qnty'] + ' ' + edit_data[i]['type'] + '</td><td>' + edit_data[i]['part'] + '</td><td>' + edit_data[i]['amount'] + '</td><td>' + edit_data[i]['total'] + '</td><td>' +
+			  	'<button type="button" class="btn btn-danger" onclick="deleteRow(this)"><i class="fa fa-trash" aria-hidden="true"></i>&nbspDelete</button>');
+
+		grandTotal += parseFloat(edit_data[i]['total']);
+	}
+	
+	$('#edit_table tbody').append('<tr><td>' + '<font color="red">GRAND TOTAL</font>' + '</td><td>' + ' ' + '</td><td>' + ' ' + '</td><td><font color="red"> P ' + grandTotal.toFixed(2) + '</font></td><tr>');
 }
 
 $('#edit_close').on('click', function()
@@ -358,6 +392,9 @@ function view(i)
 			$('#aremark').val(aremark);
 
 			len = data.length;
+
+			grandTotal = 0;
+
 			for (i = 0; i < len; i++)
 			{
 				item = JSON.parse(data[i]['item']);
@@ -371,9 +408,12 @@ function view(i)
 					amount = item[j]['amount'];
 					total = item[j]['total'];
 
+					grandTotal += parseFloat(total);
+					
 					$('#view_table tbody').append('<tr><td>' + qnty + ' ' + type + '</td><td>' + part + '</td><td>' + amount + '</td><td>' + total + '</td></tr>');
 				}
 			}
+			$('#view_table tbody').append('<tr><td>' + '<font color="red">GRAND TOTAL</font>' + '</td><td>' + ' ' + '</td><td>' + ' ' + '</td><td><font color="red"> P ' + grandTotal.toFixed(2) + '</font></td></tr>');
 		}
 	});
 }
@@ -413,9 +453,22 @@ $('#particular').on('click', function()
 	part_data.push(obj);
 	string_data = JSON.stringify(part_data);
 
-	$('#particular_table tbody').append('<tr><td>' + qnty + ' ' + type + '</td><td>' + part + '</td><td>' + amount + '</td><td>' + total + '</td><td>' +
+	$('#add_tbody').children('tr').remove();
+
+	len = part_data.length;
+
+	grandTotal = 0;
+
+	for (i = 0; i < len; i++)
+	{
+		$('#particular_table tbody').append('<tr><td>' + part_data[i]['qnty'] + ' ' + part_data[i]['type'] + '</td><td>' + part_data[i]['part'] + '</td><td>' + part_data[i]['amount'] + '</td><td>' + part_data[i]['total'] + '</td><td>' +
 			  	'<button type="button" class="btn btn-danger" onclick="deleteRow(this)"><i class="fa fa-trash" aria-hidden="true"></i>&nbspDelete</button>');
+
+		grandTotal += parseFloat(part_data[i]['total']);
+	}
 	
+	$('#particular_table tbody').append('<tr><td>' + '<font color="red">GRAND TOTAL</font>' + '</td><td>' + ' ' + '</td><td>' + ' ' + '</td><td><font color="red"> P ' + grandTotal.toFixed(2) + '</font></td></tr>');
+
 	$('#qnty').val('');
 	$('#type').val('pcs');
 	$('#part').val('');
@@ -512,4 +565,41 @@ $('#viewReq').on('hidden.bs.modal', function ()
 $('#vviewReq').on('hidden.bs.modal', function () 
 {
   	$('#vview_tbody').children('tr').remove();
+});
+
+
+$("#amount").keyup(function() 
+{
+	qnty = $('#qnty').val();
+	amunt = $(this).val();
+	total = qnty * amunt;
+
+	$('#total').val(total.toFixed(2));
+});
+
+$("#qnty").keyup(function() 
+{
+	qnty = $(this).val();
+	amunt = $('#amount').val();
+	total = qnty * amunt;
+
+	$('#total').val(total.toFixed(2));
+});
+
+$("#edit_amount").keyup(function() 
+{
+	qnty = $('#edit_qnty').val();
+	amunt = $(this).val();
+	total = qnty * amunt;
+
+	$('#edit_total').val(total.toFixed(2));
+});
+
+$("#edit_qnty").keyup(function() 
+{
+	qnty = $(this).val();
+	amunt = $('#edit_amount').val();
+	total = qnty * amunt;
+
+	$('#edit_total').val(total.toFixed(2));
 });

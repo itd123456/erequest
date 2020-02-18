@@ -220,12 +220,14 @@
                 Quantity :&nbsp<input type="number" name="edit_qnty" id="edit_qnty" style="width:100px">&nbsp
                 <select id="edit_type" name="edit_type">
                     <option value="pcs">PCS</option>
-                    <option value="rim">RIM</option>
+                    <option value="ream">REAM</option>
                     <option value="box">BOX</option>
+                    <option value="roll">ROLL</option>
+                    <option value="pack">PACK</option>
                 </select> &nbsp
                 Particular :&nbsp<input type="text" name="edit_part" id="edit_part" style="width:110px"> &nbsp
                 Amount :&nbsp<input type="number" name="edit_amount" id="edit_amount" style="width:110px"> &nbsp
-                Total Amount :&nbsp<input type="number" name="edit_total" id="edit_total" style="width:110px">
+                Total Amount :&nbsp<input type="number" name="edit_total" id="edit_total" style="width:110px" disabled="">
               </span><br><br>
               <button type="button" class="btn btn-success" id="edit_particular" name="edit_particular" style="margin-bottom: 5px"><i class="fa fa-save" aria-hidden="true"></i>&nbspSave Particular</button>
 
@@ -303,6 +305,23 @@
                             <div class="sparkline13-hd">
                                 <div class="main-sparkline13-hd">
                                     <h1>CHECKED REQUISITIONS</h1>
+                                    Month : &nbsp
+                                    <select id="checkedMonth" name="checkedMonth">
+                                        <option value="01">January</option>
+                                        <option value="02">February</option>
+                                        <option value="03">March</option>
+                                        <option value="04">April</option>
+                                        <option value="05">May</option>
+                                        <option value="06">June</option>
+                                        <option value="07">July</option>
+                                        <option value="08">August</option>
+                                        <option value="09">September</option>
+                                        <option value="10">October</option>
+                                        <option value="11">November</option>
+                                        <option value="12">December</option>
+                                    </select> &nbsp
+                                    Year : &nbsp <input type="text" id="checkedYear" name="checkedYear" style="width: 5%"> &nbsp
+                                    <button id="genRequisition" class="btn btn-primary"><i class="fa fa-cog" aria-hidden="true"></i>&nbspGenerate Excel</button>
                                 </div>
                             </div>
                             <div class="sparkline13-graph">

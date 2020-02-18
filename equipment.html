@@ -170,15 +170,28 @@
             </div>
             <div class="modal-body">
               <span style="display: inline;">
-                Item :&nbsp<input type="text" name="item" id="item" style="width:40%;">&nbsp <button class="btn btn-success" id="addItem" name="addItem"><i class="fa fa-plus" aria-hidden="true"></i> Add Item</button>
+                Quantity :&nbsp<input type="number" name="qnty" id="qnty" style="width: 23%"> &nbsp Type :&nbsp
+                <select id="type" name="type">
+                    <option value="pcs">PCS</option>
+                    <option value="rim">RIM</option>
+                    <option value="box">BOX</option>
+                    <option value="pack">Pack</option>
+                </select> <br/>
+                Item :&nbsp<input type="text" name="item" id="item" style="width:40%;"><br/>
+                Amount :&nbsp<input type="number" name="amount" id="amount" style="width:37%"> <br/>
+                Total Amount :&nbsp<input type="number" name="total" id="total" style="width:32.2%" disabled=""><br/>
+                <button class="btn btn-success" id="addItem" name="addItem"><i class="fa fa-plus" aria-hidden="true"></i> Add Item</button><br/>
               </span><br>
 
               <div class="card-body">
                   <table class="table table-striped table-bordered" id="particular_table" name="particular_table" width="100%" cellspacing="0">
                     <thead>
                       <tr>
-                        <th width="85%">Item</th>
-                        <th width="15%">Action</th>
+                        <th>Quantity</th>
+                        <th>Item (s)</th>
+                        <th>Amount</th>
+                        <th>Total</th>
+                        <th width="10%">Action</th>
                       </tr>
                     </thead>
                     <tbody id="add_tbody"></tbody>
@@ -217,7 +230,10 @@
                   <table class="table uk-table uk-table-hover uk-table-striped" id="view_table" name="view_table" width="100%" cellspacing="0">
                     <thead>
                       <tr>
+                        <th>Quantity</th>
                         <th>Item (s)</th>
+                        <th>Amount</th>
+                        <th>Total</th>
                       </tr>
                     </thead>
                     <tbody id="view_tbody"></tbody>
@@ -261,7 +277,10 @@
                   <table class="table uk-table uk-table-hover uk-table-striped" id="rview_table" name="rview_table" width="100%" cellspacing="0">
                     <thead>
                       <tr>
+                        <th>Quantity</th>
                         <th>Item (s)</th>
+                        <th>Amount</th>
+                        <th>Total</th>
                       </tr>
                     </thead>
                     <tbody id="rview_tbody"></tbody>
@@ -300,15 +319,28 @@
             <div class="modal-body">
                 Request No. : &nbsp <label id="ereq" name="ereq">Name</label><br/>
                 <span style="display: inline;">
-                    Item :&nbsp<input type="text" name="eitem" id="eitem" style="width:40%;">&nbsp <button class="btn btn-success" id="eaddItem" name="eaddItem"><i class="fa fa-plus" aria-hidden="true"></i> Add Item</button>
-                </span><br>
+                Quantity :&nbsp<input type="number" name="eqnty" id="eqnty" style="width: 23%"> &nbsp Type :&nbsp
+                <select id="etype" name="etype">
+                    <option value="pcs">PCS</option>
+                    <option value="rim">RIM</option>
+                    <option value="box">BOX</option>
+                    <option value="pack">Pack</option>
+                </select> <br/>
+                Item :&nbsp<input type="text" name="eitem" id="eitem" style="width:40%;"><br/>
+                Amount :&nbsp<input type="number" name="eamount" id="eamount" style="width:37%"> <br/>
+                Total Amount :&nbsp<input type="number" name="etotal" id="etotal" style="width:32.2%" disabled=""><br/>
+                <button class="btn btn-success" id="eaddItem" name="eaddItem"><i class="fa fa-plus" aria-hidden="true"></i> Add Item</button><br/>
+              </span><br>
 
                 <div class="card-body">
                     <table class="table table-striped table-bordered" id="edit_table" name="edit_table" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th width="85%">Item</th>
-                                <th width="15%">Action</th>
+                                <th>Quantity</th>
+                                <th>Item (s)</th>
+                                <th>Amount</th>
+                                <th>Total</th>
+                                <th width="10%">Action</th>
                             </tr>
                         </thead>
                         <tbody id="edit_tbody"></tbody>

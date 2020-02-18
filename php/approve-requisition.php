@@ -10,7 +10,7 @@
 	$approver = $_SESSION['username'];
 
 	$sql = "UPDATE requisition
-			SET app_remark = '$remark', app_date = NOW(), approver = '$approver', status = 'Approved'
+			SET app_remark = '$remark', app_date = NOW(), approver = '$approver', status = 'Approved', item = '$item'
 			WHERE id = $id";
 
 	$db = new Database();
