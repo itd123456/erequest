@@ -3,7 +3,8 @@
 	require('database.php');
 
 	$sql = "SELECT Department
-			FROM department";
+			FROM department
+			ORDER BY Department";
 	
 	$db = new Database();
 

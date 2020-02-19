@@ -3,85 +3,40 @@
 	require('Spreadsheet/Excel/Writer.php');
   	require('database.php');
 
-	$month = $_GET['mon'];
-	$year = $_GET['yr'];
+  	$start = $_GET['start'];
+	$end = $_GET['end'];
+	$area = $_GET['area'];
 	$db = new Database();
 
-	$prevMon = '';
-	$prevYear = '';
+	$end = strtotime($end . '+1 day');
+	$end = date('Y-m-d', $end);
 
-	if ($month == '01')
+	$departments = '';
+
+	if ($area == 'Head Office')
 	{
-		$prevMon = '12';
-		$prevYear = (int) $year - 1;
+
+		$departments = "SELECT Department
+			 			FROM hodept";
 	}
-	else
+	else if ($area != 'Head Office')
 	{
-		$prevMon = (int) $month - 1;
-		
-		if ($prevMon < 10)
-		{
-			$prevMon = '0'.$prevMon;
-		}
+		$departments = "SELECT branch
+			 			FROM branch
+			 			WHERE area = '$area'";
 	}
 
-	$departments = "SELECT Department
-				 FROM department";
+	$sql = "SELECT r.item, u.Department, u.branch
+			FROM requisition r
+			JOIN user_data u
+			ON r.user = u.user
+			JOIN branch b
+			ON u.branch = b.branch
+			WHERE app_date BETWEEN '$start' AND '$end'
+			AND b.area = '$area'";
 
+	$data = $db->getMax($sql);
 	$departments = $db->getMax($departments);
-
-	$data = [];
-
-	for ($p = 16; $p <= 31; $p++)
-	{
-		$appDate = '%'.$prevYear.'-'.$prevMon.'-'.$p.'%';
-
-		$sql = "SELECT r.item, u.Department
-				FROM requisition r
-				JOIN user_data u
-				ON r.user = u.user
-				WHERE app_date LIKE '$appDate'";
-
-		$prevData = $db->getMax($sql);
-		
-		$check = count($prevData);
-		
-		if ($check > 0)
-		{
-			for ($i = 0; $i < $check; $i++)
-			{
-				array_push($data, $prevData[$i]);
-			}
-		}
-	}
-
-	for ($c = 1; $c <= 15; $c++)
-	{
-		$appDate = '%'.$year.'-'.$month.'-'.$c.'%';
-
-		if ($c < 10)
-		{
-			$appDate = '%'.$year.'-'.$month.'-0'.$c.'%';
-		}
-
-		$sql = "SELECT r.item, u.Department
-				FROM requisition r
-				JOIN user_data u
-				ON r.user = u.user
-				WHERE app_date LIKE '$appDate'";
-
-		$currData = $db->getMax($sql);
-		
-		$check = count($currData);
-		
-		if ($check > 0)
-		{
-			for ($i = 0; $i < $check; $i++)
-			{
-				array_push($data, $currData[$i]);
-			}
-		}	
-	}
 
 	$writer = new Spreadsheet_Excel_Writer();
   	$writer->send('SUPPLIES '.date("Y").'.xls');
@@ -90,7 +45,34 @@
 	$textWrap->setTextWrap(true);
 	$textWrap->setFontFamily('Tahoma');
 
-	$sheet = $writer->addWorksheet('Sheet1');
+	$sheet = 'sheet 1';
+
+	if ($area == 'North Branches')
+	{
+		$sheet = 'NORTH BRANCHES';
+	}
+	else if ($area == 'Head Office')
+	{
+		$sheet = 'HEAD OFFICE';
+	}
+	else if ($area == 'Makati')
+	{
+		$sheet = 'MAKATI AND SOUTH BRANCHES';
+	}
+	else if ($area == 'GMA')
+	{
+		$sheet = 'GMA BRANCHES';
+	}
+	else if ($area == 'Sure Cycle')
+	{
+		$sheet = 'SURE CYCLE';
+	}
+	else
+	{
+		$sheet = 'VISMIN';
+	}
+
+	$sheet = $writer->addWorksheet($sheet);
 
 	$merge = $writer->addFormat();
 	$merge->setAlign('center');
@@ -140,10 +122,6 @@
 
 	$sheet->setRow(11, 3, 0);
 
-	$bLen = count($departments);
-	$dLen = count($data);
-	$x = 12;
-
 	$textWrap1 = $writer->addFormat();
 	$textWrap1->setTextWrap(true);
 	$textWrap1->setFontFamily('Tahoma');
@@ -158,89 +136,41 @@
     $ttl->setAlign('right');
     $ttl->setVAlign('vright');
 
+    $bLen = count($departments);
+	$dLen = count($data);
+	$x = 12;
     $prevDept = '';
 
-	for ($b = 0; $b < $bLen; $b++)
-	{
-		$dept = $departments[$b]['Department'];
-		$total = 0;
-
-		for ($d = 0; $d < $dLen; $d++)
+    if ($area != 'Makati')
+    {
+    	for ($b = 0; $b < $bLen; $b++)
 		{
-			$deptReq = $data[$d]['Department'];
+			$dept = '';
 
-			if ($x == 12 && $dept == $deptReq)
-			{	
-				$sheet->setMerge($x, 0, $x, 2);
-				$sheet->writeString($x, 0, $deptReq, $textWrap);
-				$x++;
-				$sheet->writeString($x, 0, 'Qty', $textWrap1);
-				$sheet->writeString($x, 1, 'Unit', $textWrap1);
-				$sheet->writeString($x, 2, 'Description', $textWrap1);
-				$sheet->writeString($x, 3, 'Unit Price', $textWrap1);
-				$sheet->writeString($x, 4, 'Amount', $textWrap1);
-				$x++;
-
-				$item = json_decode($data[$d]['item'], true);
-
-				$iLen = count($item);
-
-				for ($i = 0; $i < $iLen; $i++)
-				{
-					$qty = $item[$i]['qnty'];
-					$unit = $item[$i]['type'];
-					$desc = $item[$i]['part'];
-					$price = $item[$i]['amount'];
-					$price = (float) $price;
-					$price = number_format($price, 2);
-					$amount = $item[$i]['total'];
-					$amount = (float) $amount;
-					$total += $amount;
-					$amount = number_format($amount, 2);
-
-					$sheet->writeString($x, 0, $qty, $merge);
-					$sheet->writeString($x, 1, $unit, $merge);
-					$sheet->writeString($x, 2, $desc, $merge);
-					$sheet->writeString($x, 3, $price, $merge1);
-					$sheet->writeString($x, 4, $amount, $merge1);
-					$x++;
-				}
-			}
-			else if ($x > 12 && $dept == $deptReq && !$prevDept)
+			if ($area != 'Head Office')
 			{
-				$item = json_decode($data[$d]['item'], true);
-
-				$iLen = count($item);
-
-				for ($i = 0; $i < $iLen; $i++)
-				{
-					$qty = $item[$i]['qnty'];
-					$unit = $item[$i]['type'];
-					$desc = $item[$i]['part'];
-					$price = $item[$i]['amount'];
-					$price = (float) $price;
-					$price = number_format($price, 2);
-					$amount = $item[$i]['total'];
-					$amount = (float) $amount;
-					$total += $amount;
-					$amount = number_format($amount, 2);
-
-					$sheet->writeString($x, 0, $qty, $merge);
-					$sheet->writeString($x, 1, $unit, $merge);
-					$sheet->writeString($x, 2, $desc, $merge);
-					$sheet->writeString($x, 3, $price, $merge1);
-					$sheet->writeString($x, 4, $amount, $merge1);
-					$x++;
-				}
+				$dept = $departments[$b]['branch'];
 			}
-			else if ($x > 12 && $dept == $deptReq && $prevDept)
+			else
 			{
-				if ($dept != $prevDept)
-				{
-					$prevDept = $dept;
+				$dept = $departments[$b]['Department'];
+			}
 
+			$total = 0;
+
+			for ($d = 0; $d < $dLen; $d++)
+			{
+				$deptReq = $data[$d]['Department'];
+
+				if ($area != 'Head Office')
+				{
+					$deptReq = $data[$d]['branch'];
+				}
+
+				if ($x == 12 && $dept == $deptReq)
+				{	
 					$sheet->setMerge($x, 0, $x, 2);
-					$sheet->writeString($x, 0, $deptReq, $textWrap);
+					$sheet->writeString($x, 0, strtoupper($deptReq), $textWrap);
 					$x++;
 					$sheet->writeString($x, 0, 'Qty', $textWrap1);
 					$sheet->writeString($x, 1, 'Unit', $textWrap1);
@@ -274,7 +204,7 @@
 						$x++;
 					}
 				}
-				else
+				else if ($x > 12 && $dept == $deptReq && !$prevDept)
 				{
 					$item = json_decode($data[$d]['item'], true);
 
@@ -301,20 +231,424 @@
 						$x++;
 					}
 				}
-			}
+				else if ($x > 12 && $dept == $deptReq && $prevDept)
+				{
+					if ($dept != $prevDept)
+					{
+						$prevDept = $dept;
 
-			if ($x > 12 && $d == $dLen - 1 && $total > 0)
-			{
-				$sheet->writeString($x, 2, 'TOTAL:', $textWrap1);
-				$totalFormat = number_format($total, 2);
-				$sheet->writeString($x, 4, $totalFormat, $ttl);
-				$prevDept = $dept;
-				$x++;
-				$sheet->setRow($x, 3, 0);
-				$x++;
+						$sheet->setMerge($x, 0, $x, 2);
+						$sheet->writeString($x, 0, strtoupper($deptReq), $textWrap);
+						$x++;
+						$sheet->writeString($x, 0, 'Qty', $textWrap1);
+						$sheet->writeString($x, 1, 'Unit', $textWrap1);
+						$sheet->writeString($x, 2, 'Description', $textWrap1);
+						$sheet->writeString($x, 3, 'Unit Price', $textWrap1);
+						$sheet->writeString($x, 4, 'Amount', $textWrap1);
+						$x++;
+
+						$item = json_decode($data[$d]['item'], true);
+
+						$iLen = count($item);
+
+						for ($i = 0; $i < $iLen; $i++)
+						{
+							$qty = $item[$i]['qnty'];
+							$unit = $item[$i]['type'];
+							$desc = $item[$i]['part'];
+							$price = $item[$i]['amount'];
+							$price = (float) $price;
+							$price = number_format($price, 2);
+							$amount = $item[$i]['total'];
+							$amount = (float) $amount;
+							$total += $amount;
+							$amount = number_format($amount, 2);
+
+							$sheet->writeString($x, 0, $qty, $merge);
+							$sheet->writeString($x, 1, $unit, $merge);
+							$sheet->writeString($x, 2, $desc, $merge);
+							$sheet->writeString($x, 3, $price, $merge1);
+							$sheet->writeString($x, 4, $amount, $merge1);
+							$x++;
+						}
+					}
+					else
+					{
+						$item = json_decode($data[$d]['item'], true);
+
+						$iLen = count($item);
+
+						for ($i = 0; $i < $iLen; $i++)
+						{
+							$qty = $item[$i]['qnty'];
+							$unit = $item[$i]['type'];
+							$desc = $item[$i]['part'];
+							$price = $item[$i]['amount'];
+							$price = (float) $price;
+							$price = number_format($price, 2);
+							$amount = $item[$i]['total'];
+							$amount = (float) $amount;
+							$total += $amount;
+							$amount = number_format($amount, 2);
+
+							$sheet->writeString($x, 0, $qty, $merge);
+							$sheet->writeString($x, 1, $unit, $merge);
+							$sheet->writeString($x, 2, $desc, $merge);
+							$sheet->writeString($x, 3, $price, $merge1);
+							$sheet->writeString($x, 4, $amount, $merge1);
+							$x++;
+						}
+					}
+				}
+
+				if ($x > 12 && $d == $dLen - 1 && $total > 0)
+				{
+					$sheet->writeString($x, 2, 'TOTAL:', $textWrap1);
+					$totalFormat = number_format($total, 2);
+					$sheet->writeString($x, 4, $totalFormat, $ttl);
+					$prevDept = $dept;
+					$x++;
+					$sheet->setRow($x, 3, 0);
+					$x++;
+				}
 			}
 		}
-	}
+    }
+    else if ($area == 'Makati')
+    {
+    	$mkti = 0;
+
+    	for ($b = 0; $b < $bLen; $b++)
+		{
+			$dept = $departments[$b]['branch'];
+
+			if ($dept == 'Makati')
+			{
+				$mkti = 1;
+				continue;
+			}
+
+			$total = 0;
+
+			for ($d = 0; $d < $dLen; $d++)
+			{
+				$deptReq = $data[$d]['branch'];
+
+				if ($x == 12 && $dept == $deptReq)
+				{	
+					$sheet->setMerge($x, 0, $x, 2);
+					$sheet->writeString($x, 0, strtoupper($deptReq), $textWrap);
+					$x++;
+					$sheet->writeString($x, 0, 'Qty', $textWrap1);
+					$sheet->writeString($x, 1, 'Unit', $textWrap1);
+					$sheet->writeString($x, 2, 'Description', $textWrap1);
+					$sheet->writeString($x, 3, 'Unit Price', $textWrap1);
+					$sheet->writeString($x, 4, 'Amount', $textWrap1);
+					$x++;
+
+					$item = json_decode($data[$d]['item'], true);
+
+					$iLen = count($item);
+
+					for ($i = 0; $i < $iLen; $i++)
+					{
+						$qty = $item[$i]['qnty'];
+						$unit = $item[$i]['type'];
+						$desc = $item[$i]['part'];
+						$price = $item[$i]['amount'];
+						$price = (float) $price;
+						$price = number_format($price, 2);
+						$amount = $item[$i]['total'];
+						$amount = (float) $amount;
+						$total += $amount;
+						$amount = number_format($amount, 2);
+
+						$sheet->writeString($x, 0, $qty, $merge);
+						$sheet->writeString($x, 1, $unit, $merge);
+						$sheet->writeString($x, 2, $desc, $merge);
+						$sheet->writeString($x, 3, $price, $merge1);
+						$sheet->writeString($x, 4, $amount, $merge1);
+						$x++;
+					}
+				}
+				else if ($x > 12 && $dept == $deptReq && !$prevDept)
+				{
+					$item = json_decode($data[$d]['item'], true);
+
+					$iLen = count($item);
+
+					for ($i = 0; $i < $iLen; $i++)
+					{
+						$qty = $item[$i]['qnty'];
+						$unit = $item[$i]['type'];
+						$desc = $item[$i]['part'];
+						$price = $item[$i]['amount'];
+						$price = (float) $price;
+						$price = number_format($price, 2);
+						$amount = $item[$i]['total'];
+						$amount = (float) $amount;
+						$total += $amount;
+						$amount = number_format($amount, 2);
+
+						$sheet->writeString($x, 0, $qty, $merge);
+						$sheet->writeString($x, 1, $unit, $merge);
+						$sheet->writeString($x, 2, $desc, $merge);
+						$sheet->writeString($x, 3, $price, $merge1);
+						$sheet->writeString($x, 4, $amount, $merge1);
+						$x++;
+					}
+				}
+				else if ($x > 12 && $dept == $deptReq && $prevDept)
+				{
+					if ($dept != $prevDept)
+					{
+						$prevDept = $dept;
+
+						$sheet->setMerge($x, 0, $x, 2);
+						$sheet->writeString($x, 0, strtoupper($deptReq), $textWrap);
+						$x++;
+						$sheet->writeString($x, 0, 'Qty', $textWrap1);
+						$sheet->writeString($x, 1, 'Unit', $textWrap1);
+						$sheet->writeString($x, 2, 'Description', $textWrap1);
+						$sheet->writeString($x, 3, 'Unit Price', $textWrap1);
+						$sheet->writeString($x, 4, 'Amount', $textWrap1);
+						$x++;
+
+						$item = json_decode($data[$d]['item'], true);
+
+						$iLen = count($item);
+
+						for ($i = 0; $i < $iLen; $i++)
+						{
+							$qty = $item[$i]['qnty'];
+							$unit = $item[$i]['type'];
+							$desc = $item[$i]['part'];
+							$price = $item[$i]['amount'];
+							$price = (float) $price;
+							$price = number_format($price, 2);
+							$amount = $item[$i]['total'];
+							$amount = (float) $amount;
+							$total += $amount;
+							$amount = number_format($amount, 2);
+
+							$sheet->writeString($x, 0, $qty, $merge);
+							$sheet->writeString($x, 1, $unit, $merge);
+							$sheet->writeString($x, 2, $desc, $merge);
+							$sheet->writeString($x, 3, $price, $merge1);
+							$sheet->writeString($x, 4, $amount, $merge1);
+							$x++;
+						}
+					}
+					else
+					{
+						$item = json_decode($data[$d]['item'], true);
+
+						$iLen = count($item);
+
+						for ($i = 0; $i < $iLen; $i++)
+						{
+							$qty = $item[$i]['qnty'];
+							$unit = $item[$i]['type'];
+							$desc = $item[$i]['part'];
+							$price = $item[$i]['amount'];
+							$price = (float) $price;
+							$price = number_format($price, 2);
+							$amount = $item[$i]['total'];
+							$amount = (float) $amount;
+							$total += $amount;
+							$amount = number_format($amount, 2);
+
+							$sheet->writeString($x, 0, $qty, $merge);
+							$sheet->writeString($x, 1, $unit, $merge);
+							$sheet->writeString($x, 2, $desc, $merge);
+							$sheet->writeString($x, 3, $price, $merge1);
+							$sheet->writeString($x, 4, $amount, $merge1);
+							$x++;
+						}
+					}
+				}
+
+				if ($x > 12 && $d == $dLen - 1 && $total > 0)
+				{
+					$sheet->writeString($x, 2, 'TOTAL:', $textWrap1);
+					$totalFormat = number_format($total, 2);
+					$sheet->writeString($x, 4, $totalFormat, $ttl);
+					$prevDept = $dept;
+					$x++;
+					$sheet->setRow($x, 3, 0);
+					$x++;
+				}
+			}
+		}
+
+		if ($mkti == 1)
+		{
+			$sql = "SELECT Department
+			 		FROM department";
+
+			$departments = $db->getMax($sql);
+			$bLen = count($departments);
+		    $prevDept = '';
+
+			for ($b = 0; $b < $bLen; $b++)
+			{
+				$dept = $departments[$b]['Department'];
+
+				$total = 0;
+
+				for ($d = 0; $d < $dLen; $d++)
+				{
+					$bran = $data[$d]['branch'];
+
+					if ($bran == 'Makati')
+					{
+						$deptReq = $data[$d]['Department'];
+
+						if ($mkti == 1 && $dept == $deptReq)
+						{	
+							$mkti = 2;
+
+							$sheet->setMerge($x, 0, $x, 2);
+							$sheet->writeString($x, 0, strtoupper($deptReq).' (MAKATI)', $textWrap);
+							$x++;
+
+							$item = json_decode($data[$d]['item'], true);
+
+							$iLen = count($item);
+
+							for ($i = 0; $i < $iLen; $i++)
+							{
+								$qty = $item[$i]['qnty'];
+								$unit = $item[$i]['type'];
+								$desc = $item[$i]['part'];
+								$price = $item[$i]['amount'];
+								$price = (float) $price;
+								$price = number_format($price, 2);
+								$amount = $item[$i]['total'];
+								$amount = (float) $amount;
+								$total += $amount;
+								$amount = number_format($amount, 2);
+
+								$sheet->writeString($x, 0, $qty, $merge);
+								$sheet->writeString($x, 1, $unit, $merge);
+								$sheet->writeString($x, 2, $desc, $merge);
+								$sheet->writeString($x, 3, $price, $merge1);
+								$sheet->writeString($x, 4, $amount, $merge1);
+								$x++;
+							}
+						}
+						else if ($x > 12 && $dept == $deptReq && !$prevDept)
+						{
+							$item = json_decode($data[$d]['item'], true);
+
+							$iLen = count($item);
+
+							for ($i = 0; $i < $iLen; $i++)
+							{
+								$qty = $item[$i]['qnty'];
+								$unit = $item[$i]['type'];
+								$desc = $item[$i]['part'];
+								$price = $item[$i]['amount'];
+								$price = (float) $price;
+								$price = number_format($price, 2);
+								$amount = $item[$i]['total'];
+								$amount = (float) $amount;
+								$total += $amount;
+								$amount = number_format($amount, 2);
+
+								$sheet->writeString($x, 0, $qty, $merge);
+								$sheet->writeString($x, 1, $unit, $merge);
+								$sheet->writeString($x, 2, $desc, $merge);
+								$sheet->writeString($x, 3, $price, $merge1);
+								$sheet->writeString($x, 4, $amount, $merge1);
+								$x++;
+							}
+						}
+						else if ($x > 12 && $dept == $deptReq && $prevDept)
+						{
+							if ($dept != $prevDept)
+							{
+								$prevDept = $dept;
+
+								$sheet->setMerge($x, 0, $x, 2);
+								$sheet->writeString($x, 0, strtoupper($deptReq).' (MAKATI)', $textWrap);
+								$x++;
+								$sheet->writeString($x, 0, 'Qty', $textWrap1);
+								$sheet->writeString($x, 1, 'Unit', $textWrap1);
+								$sheet->writeString($x, 2, 'Description', $textWrap1);
+								$sheet->writeString($x, 3, 'Unit Price', $textWrap1);
+								$sheet->writeString($x, 4, 'Amount', $textWrap1);
+								$x++;
+
+								$item = json_decode($data[$d]['item'], true);
+
+								$iLen = count($item);
+
+								for ($i = 0; $i < $iLen; $i++)
+								{
+									$qty = $item[$i]['qnty'];
+									$unit = $item[$i]['type'];
+									$desc = $item[$i]['part'];
+									$price = $item[$i]['amount'];
+									$price = (float) $price;
+									$price = number_format($price, 2);
+									$amount = $item[$i]['total'];
+									$amount = (float) $amount;
+									$total += $amount;
+									$amount = number_format($amount, 2);
+
+									$sheet->writeString($x, 0, $qty, $merge);
+									$sheet->writeString($x, 1, $unit, $merge);
+									$sheet->writeString($x, 2, $desc, $merge);
+									$sheet->writeString($x, 3, $price, $merge1);
+									$sheet->writeString($x, 4, $amount, $merge1);
+									$x++;
+								}
+							}
+							else
+							{
+								$item = json_decode($data[$d]['item'], true);
+
+								$iLen = count($item);
+
+								for ($i = 0; $i < $iLen; $i++)
+								{
+									$qty = $item[$i]['qnty'];
+									$unit = $item[$i]['type'];
+									$desc = $item[$i]['part'];
+									$price = $item[$i]['amount'];
+									$price = (float) $price;
+									$price = number_format($price, 2);
+									$amount = $item[$i]['total'];
+									$amount = (float) $amount;
+									$total += $amount;
+									$amount = number_format($amount, 2);
+
+									$sheet->writeString($x, 0, $qty, $merge);
+									$sheet->writeString($x, 1, $unit, $merge);
+									$sheet->writeString($x, 2, $desc, $merge);
+									$sheet->writeString($x, 3, $price, $merge1);
+									$sheet->writeString($x, 4, $amount, $merge1);
+									$x++;
+								}
+							}
+						}
+
+						if ($x > 12 && $d == $dLen - 1 && $total > 0)
+						{
+							$sheet->writeString($x, 2, 'TOTAL:', $textWrap1);
+							$totalFormat = number_format($total, 2);
+							$sheet->writeString($x, 4, $totalFormat, $ttl);
+							$prevDept = $dept;
+							$x++;
+							$sheet->setRow($x, 3, 0);
+							$x++;
+						}
+					}
+				}
+			}
+		}
+    }
 
 	$merge2 = $writer->addFormat();
 	$merge2->setFontFamily('Tahoma');

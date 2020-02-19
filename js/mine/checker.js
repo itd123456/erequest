@@ -83,16 +83,11 @@ $(document).ready(function()
 
 $('#genRequisition').on('click', function()
 {
-	month = $('#checkedMonth').val();
-	year = $('#checkedYear').val();
+	startDate = $('#startDate').val();
+	endDate = $('#endDate').val();
+	area = $('#area').val();
 
-	param = 
-	{
-		month : month,
-		year : year
-	}
-
-	window.open('././php/req_excel.php?mon='+month+'&yr='+year);
+	window.open('././php/req_excel.php?start='+startDate+'&end='+endDate+'&area='+area);
 });
 
 ////////////////////////////////////////////   DELETE BUTTON

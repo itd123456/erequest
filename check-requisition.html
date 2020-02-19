@@ -78,10 +78,6 @@
 </head>
 
 <body>
-    <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-
     <div class="left-sidebar-pro">
         <nav id="sidebar" class="">
             <div class="sidebar-header">
@@ -324,22 +320,17 @@
                             <div class="sparkline13-hd">
                                 <div class="main-sparkline13-hd">
                                     <h1>APPROVED REQUISITIONS</h1>
-                                    Month : &nbsp
-                                    <select id="checkedMonth" name="checkedMonth">
-                                        <option value="01">January</option>
-                                        <option value="02">February</option>
-                                        <option value="03">March</option>
-                                        <option value="04">April</option>
-                                        <option value="05">May</option>
-                                        <option value="06">June</option>
-                                        <option value="07">July</option>
-                                        <option value="08">August</option>
-                                        <option value="09">September</option>
-                                        <option value="10">October</option>
-                                        <option value="11">November</option>
-                                        <option value="12">December</option>
-                                    </select> &nbsp
-                                    Year : &nbsp <input type="text" id="checkedYear" name="checkedYear" style="width: 5%"> &nbsp
+                                    Start Date : &nbsp <input type="date" name="startDate" id="startDate"> &nbsp
+                                    End Date : &nbsp <input type="date" id="endDate" name="endDate"> &nbsp
+                                    Area : &nbsp
+                                    <select id="area" name="area">
+                                        <option value="Head Office">Head Office</option>
+                                        <option value="GMA">GMA branches</option>
+                                        <option value="Makati">Makati and South</option>
+                                        <option value="Sure Cycle">Sure Cycle</option>
+                                        <option value="North Branches">North Branches</option>
+                                        <option value="VisMin">VisMin</option>
+                                    </select>
                                     <button id="genRequisition" class="btn btn-primary"><i class="fa fa-cog" aria-hidden="true"></i>&nbspGenerate Excel</button>
                                 </div>
                             </div>
@@ -364,41 +355,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                           <!--  <div class="sparkline13-hd">
-                                <div class="main-sparkline13-hd">
-                                    <h1>CHECKED REQUISITIONS</h1>
-                                </div>
-                            </div>
-                            <div class="sparkline13-graph">
-                                <div class="datatable-dashv1-list custom-datatable-overright">
-                                    <div class="card mb-3">
-                                      <div class="card-body">
-                                        <div class="table-responsive">
-                                          <table class="table table-bordered" id="dataTable" name="dataTable" width="100%" cellspacing="0">
-                                            <thead>
-                                              <tr>
-                                                <th data-field="id">Requisition No</th>
-                                                <th data-field="name" data-editable="true">Requisition Date</th>
-                                                <th data-field="company" data-editable="true">Status</th>
-                                                <th data-field="action">Action</th>
-                                              </tr>
-                                            </thead>
-                                            <tfoot>
-                                              <tr>
-                                                <th data-field="id">Requisition No</th>
-                                                <th data-field="name" data-editable="true">Requisition Date</th>
-                                                <th data-field="company" data-editable="true">Status</th>
-                                                <th data-field="action">Action</th>
-                                              </tr>
-                                            </tfoot>
-                                          </table>
-                                        </div>
-                                      </div>
-                                    </div>
-                                </div>
-                            </div> -->
-
                         </div>
                     </div>
                 </div>
