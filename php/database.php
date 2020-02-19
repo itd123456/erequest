@@ -3,10 +3,10 @@
 	Class Database
 	{
 		private $host = "localhost";
-		// private $user = "network";
-		// private $pass = 'P@$$w0rd2020!';
-		private $user = "root";
-		private $pass = '123456';
+		private $user = "network";
+		private $pass = 'P@$$w0rd2020!';
+		// private $user = "root";
+		// private $pass = '123456';
 		private $db = "erequest";
 		private $conn;
 
